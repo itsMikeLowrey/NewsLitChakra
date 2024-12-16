@@ -22,7 +22,20 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from '@chakra-ui/icons'
+import styled from '@emotion/styled';
 
+const StyledButton = styled.button`
+  background-color: #ff6b6b;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: #00FF00;
+  }
+`;
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure()
 
@@ -151,6 +164,10 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
       p={2}
       rounded={'md'}
       _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
+         <div>
+      <StyledButton>Click Me</StyledButton>
+      
+    </div>
       <Stack direction={'row'} align={'center'}>
         <Box>
           <Text
