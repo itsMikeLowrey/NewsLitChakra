@@ -23,6 +23,7 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons'
 import styled from '@emotion/styled';
+import { Image } from "@chakra-ui/react"
 
 const StyledButton = styled.button`
   background-color: #ff6b6b;
@@ -42,9 +43,9 @@ export default function WithSubnavigation() {
   return (
     <Box>
       <Flex
-        bg={useColorModeValue('white', 'gray.800')}
+        bg={useColorModeValue('black', 'black')}
         color={useColorModeValue('gray.600', 'white')}
-        minH={'60px'}
+        minH={'100px'}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
@@ -63,13 +64,8 @@ export default function WithSubnavigation() {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-          <Text
-            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-            fontFamily={'heading'}
-            color={useColorModeValue('gray.800', 'white')}>
-            Logo
-          </Text>
-
+        <Image src="https://www.rumorguard.org/images/nlp-logo.svg" alt="" />
+        <Image src="https://www.rumorguard.org/images/rumorguard-logo.svg" alt="" height="50px"/>
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
           </Flex>
@@ -80,7 +76,7 @@ export default function WithSubnavigation() {
           justify={'flex-end'}
           direction={'row'}
           spacing={6}>
-          <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'}>
+{/*           <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'}>
             Sign In
           </Button>
           <Button
@@ -95,7 +91,8 @@ export default function WithSubnavigation() {
               bg: 'pink.300',
             }}>
             Sign Up
-          </Button>
+          </Button> */}
+          <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path></svg>
         </Stack>
       </Flex>
 
@@ -253,42 +250,10 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
 
 interface NavItem {
   label: string
-  subLabel?: string
-  children?: Array<NavItem>
   href?: string
 }
 
 const NAV_ITEMS: Array<NavItem> = [
-  {
-    label: 'Inspiration',
-    children: [
-      {
-        label: 'Explore Design Work',
-        subLabel: 'Trending Design to inspire you',
-        href: '#',
-      },
-      {
-        label: 'New & Noteworthy',
-        subLabel: 'Up-and-coming Designers',
-        href: '#',
-      },
-    ],
-  },
-  {
-    label: 'Find Work',
-    children: [
-      {
-        label: 'Job Board',
-        subLabel: 'Find your dream design job',
-        href: '#',
-      },
-      {
-        label: 'Freelance Projects',
-        subLabel: 'An exclusive list for contract work',
-        href: '#',
-      },
-    ],
-  },
   {
     label: 'Learn Design',
     href: '#',
