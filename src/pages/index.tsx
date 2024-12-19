@@ -135,7 +135,7 @@ const DesktopNav = () => {
   )
 }
 
-const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
+const DesktopSubNav = ({ label, href }: NavItem) => {
   return (
     <Box
       as="a"
@@ -157,7 +157,6 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
             fontWeight={500}>
             {label}
           </Text>
-          <Text fontSize={'sm'}>{subLabel}</Text>
         </Box>
         <Flex
           transition={'all .3s ease'}
@@ -184,7 +183,7 @@ const MobileNav = () => {
   )
 }
 
-const MobileNavItem = ({ label, ref }: NavItem) => {
+const MobileNavItem = ({ label }: NavItem) => {
   const { isOpen, onToggle } = useDisclosure()
 
   return (
@@ -192,7 +191,7 @@ const MobileNavItem = ({ label, ref }: NavItem) => {
       <Box
         py={2}
         as="a"
-        href={href ?? '#'}
+        // href={'#'}
         justifyContent="space-between"
         alignItems="center"
         _hover={{
