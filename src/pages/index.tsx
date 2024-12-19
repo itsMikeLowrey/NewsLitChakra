@@ -128,22 +128,6 @@ const DesktopNav = () => {
                 {navItem.label}
               </Box>
             </PopoverTrigger>
-
-            {navItem.children && (
-              <PopoverContent
-                border={0}
-                boxShadow={'xl'}
-                bg={popoverContentBgColor}
-                p={4}
-                rounded={'xl'}
-                minW={'sm'}>
-                <Stack>
-                  {navItem.children.map((child) => (
-                    <DesktopSubNav key={child.label} {...child} />
-                  ))}
-                </Stack>
-              </PopoverContent>
-            )}
           </Popover>
         </Box>
       ))}
@@ -200,11 +184,11 @@ const MobileNav = () => {
   )
 }
 
-const MobileNavItem = ({ label, children, href }: NavItem) => {
+const MobileNavItem = ({ label, ref }: NavItem) => {
   const { isOpen, onToggle } = useDisclosure()
 
   return (
-    <Stack spacing={4} onClick={children && onToggle}>
+    <Stack spacing={4} onClick={onToggle}>
       <Box
         py={2}
         as="a"
@@ -217,7 +201,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
         <Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
           {label}
         </Text>
-        {children && (
+        {(
           <Icon
             as={ChevronDownIcon}
             transition={'all .25s ease-in-out'}
@@ -236,12 +220,6 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
           borderStyle={'solid'}
           borderColor={useColorModeValue('gray.200', 'gray.700')}
           align={'start'}>
-          {children &&
-            children.map((child) => (
-              <Box as="a" key={child.label} py={2} href={child.href}>
-                {child.label}
-              </Box>
-            ))}
         </Stack>
       </Collapse>
     </Stack>
