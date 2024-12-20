@@ -106,12 +106,12 @@ export default function WithSubnavigation() {
 const DesktopNav = () => {
   const linkColor = useColorModeValue('gray.600', 'gray.200')
   const linkHoverColor = useColorModeValue('gray.800', 'white')
-  const popoverContentBgColor = useColorModeValue('white', 'gray.800')
+  // const popoverContentBgColor = useColorModeValue('white', 'gray.800')
 
   return (
     <Stack direction={'row'} spacing={4}>
       {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem.label}>
+        <Box key={navItem.labelTop}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
               <Box
@@ -125,17 +125,19 @@ const DesktopNav = () => {
                   textDecoration: 'none',
                   color: linkHoverColor,
                 }}>
-                {navItem.label}
+                {navItem.labelTop}<br/>
+                {navItem.labelBottom}
               </Box>
             </PopoverTrigger>
           </Popover>
+          
         </Box>
       ))}
     </Stack>
   )
 }
 
-const DesktopSubNav = ({ label, href }: NavItem) => {
+/* const DesktopSubNav = ({ labelTop, href }: NavItem) => {
   return (
     <Box
       as="a"
@@ -155,7 +157,7 @@ const DesktopSubNav = ({ label, href }: NavItem) => {
             transition={'all .3s ease'}
             _groupHover={{ color: 'pink.400' }}
             fontWeight={500}>
-            {label}
+            {labelTop}
           </Text>
         </Box>
         <Flex
@@ -171,19 +173,19 @@ const DesktopSubNav = ({ label, href }: NavItem) => {
       </Stack>
     </Box>
   )
-}
+} */
 
 const MobileNav = () => {
   return (
     <Stack bg={useColorModeValue('white', 'gray.800')} p={4} display={{ md: 'none' }}>
       {NAV_ITEMS.map((navItem) => (
-        <MobileNavItem key={navItem.label} {...navItem} />
+        <MobileNavItem key={navItem.labelBottom} {...navItem} />
       ))}
     </Stack>
   )
 }
 
-const MobileNavItem = ({ label }: NavItem) => {
+const MobileNavItem = ({ labelTop }: NavItem) => {
   const { isOpen, onToggle } = useDisclosure()
 
   return (
@@ -198,7 +200,7 @@ const MobileNavItem = ({ label }: NavItem) => {
           textDecoration: 'none',
         }}>
         <Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
-          {label}
+          {labelTop}
         </Text>
         {(
           <Icon
@@ -226,17 +228,30 @@ const MobileNavItem = ({ label }: NavItem) => {
 }
 
 interface NavItem {
-  label: string
+  labelTop: string
+  labelBottom: string
   href?: string
 }
 
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'Learn Design',
-    href: '#',
+    labelTop: 'Recent',
+    labelBottom: 'Checks',
+    // href: '#',
   },
   {
-    label: 'Hire Designers',
-    href: '#',
+    labelTop: 'The',
+    labelBottom: 'Factors'
+    // href: '#',
+  },
+  {
+    labelTop: 'The',
+    labelBottom: 'Topics'
+    // href: '#',
+  },
+  {
+    labelTop: 'Take',
+    labelBottom: 'Action'
+    // href: '#',
   },
 ]
