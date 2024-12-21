@@ -4,6 +4,7 @@ import {
   Box,
   Flex,
   Text,
+  HStack,
   IconButton,
   Button,
   Stack,
@@ -22,39 +23,28 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from '@chakra-ui/icons'
-import styled from '@emotion/styled';
 import { Image } from "@chakra-ui/react"
 
-const StyledButton = styled.button`
-  background-color: #ff6b6b;
-  color: white;
-  font-size: 16px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  &:hover {
-    background-color: #00FF00;
-  }
-`;
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure()
 
   return (
-    <Box>
+    <nav>
       <Flex
-        bg={useColorModeValue('black', 'black')}
-        color={useColorModeValue('gray.600', 'white')}
+        bg={'#000000'}
+        color={'white'}
         minH={'100px'}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
+        w="100%"
         borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.900')}
+        borderColor={'#000000'}
         align={'center'}>
         <Flex
           flex={{ base: 1, md: 'auto' }}
           ml={{ base: -2 }}
+          w="100%"
           display={{ base: 'flex', md: 'none' }}>
           <IconButton
             onClick={onToggle}
@@ -63,10 +53,10 @@ export default function WithSubnavigation() {
             aria-label={'Toggle Navigation'}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} w="100%">
         <Image src="https://www.rumorguard.org/images/nlp-logo.svg" alt="" />
-        <Image src="https://www.rumorguard.org/images/rumorguard-logo.svg" alt="" height="50px"/>
-          <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+        <Image src="https://www.rumorguard.org/images/rumorguard-logo.svg" alt="" height="50px" ml= {5}/>
+          <Flex display={{ base: 'none', md: 'flex' }} ml={10} w="100%">
             <DesktopNav />
           </Flex>
         </Flex>
@@ -76,30 +66,25 @@ export default function WithSubnavigation() {
           justify={'flex-end'}
           direction={'row'}
           spacing={6}>
-{/*           <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'}>
-            Sign In
-          </Button>
-          <Button
-            as={'a'}
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'pink.400'}
-            href={'#'}
-            _hover={{
-              bg: 'pink.300',
-            }}>
-            Sign Up
-          </Button> */}
-          <svg stroke="currentColor" fill="currentColor" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path></svg>
+          <Icon
+            viewBox="0 0 24 24"
+            w={6}
+            h={6}
+            color="white"
+            _hover={{ color: '#00E5BA' }}
+          >
+            <path
+              fill="currentColor"
+              d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"
+            />
+          </Icon>
         </Stack>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
         <MobileNav />
       </Collapse>
-    </Box>
+    </nav>
   )
 }
 
@@ -109,31 +94,30 @@ const DesktopNav = () => {
   // const popoverContentBgColor = useColorModeValue('white', 'gray.800')
 
   return (
-    <Stack direction={'row'} spacing={4}>
-      {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem.labelTop}>
-          <Popover trigger={'hover'} placement={'bottom-start'}>
-            <PopoverTrigger>
-              <Box
-                as="a"
-                p={2}
-                href={navItem.href ?? '#'}
-                fontSize={'sm'}
-                fontWeight={500}
-                color={linkColor}
-                _hover={{
-                  textDecoration: 'none',
-                  color: linkHoverColor,
-                }}>
-                {navItem.labelTop}<br/>
-                {navItem.labelBottom}
-              </Box>
-            </PopoverTrigger>
-          </Popover>
-          
-        </Box>
-      ))}
-    </Stack>
+    <HStack w="100%" justify="space-evenly">
+      <HStack w="60%" justify="space-evenly">
+        {NAV_ITEMS.map((navItem) => (
+          <Box key={navItem.labelBottom}>
+                  <Box>  
+                    <Box
+                    as="a"
+                    w="100%"
+                    href={navItem.href ?? '#'}
+                    color={'white'}
+                    _hover={{
+                      textDecoration: 'none',
+                      color: '#00E5BA',
+                    }}> 
+                      <Box p={0} m={0} lineHeight="1.1">
+                        <Text p={0} m={0} as="span" fontSize="xl">{navItem.labelTop}</Text><br/>
+                        <Text p={0} m={0} as="span" fontSize="2xl" fontWeight="bold">{navItem.labelBottom}</Text>
+                      </Box>
+                    </Box>
+                </Box>
+          </Box>
+        ))}
+      </HStack>
+    </HStack>
   )
 }
 
