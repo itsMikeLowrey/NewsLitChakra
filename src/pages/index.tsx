@@ -5,7 +5,7 @@ import NavBar from '../components/NavBar'
 
 export default function WithSubnavigation() {
   return (
-    <div bg='white'>
+    <div>
     <NavBar/>
     <MyComponent/>
     </div>
