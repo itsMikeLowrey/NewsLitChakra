@@ -1,68 +1,37 @@
 'use client'
 
 import {
-  Button,
-  Flex,
-  Heading,
-  Image,
-  Stack,
+  Box,
+  HStack,
   Text,
-  useBreakpointValue,
+  Button
 } from '@chakra-ui/react'
 
 export default function SplitScreen() {
   return (
-    <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
-      <Flex p={8} flex={1} align={'center'} justify={'center'}>
-        <Stack spacing={6} w={'full'} maxW={'lg'}>
-          <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
-            <Text
-              as={'span'}
-              position={'relative'}
-              _after={{
-                content: "''",
-                width: 'full',
-                height: useBreakpointValue({ base: '20%', md: '30%' }),
-                position: 'absolute',
-                bottom: 1,
-                left: 0,
-                bg: 'blue.400',
-                zIndex: -1,
-              }}>
-              Freelance
-            </Text>
-            <br />{' '}
-            <Text color={'blue.400'} as={'span'}>
-              Design Projects
-            </Text>{' '}
-          </Heading>
-          <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
-            The project board is an exclusive resource for contract work. It&apos;s
-            perfect for freelancers, agencies, and moonlighters.
-          </Text>
-          <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
-            <Button
-              rounded={'full'}
-              bg={'blue.400'}
-              color={'white'}
-              _hover={{
-                bg: 'blue.500',
-              }}>
-              Create Project
-            </Button>
-            <Button rounded={'full'}>How It Works</Button>
-          </Stack>
-        </Stack>
-      </Flex>
-      <Flex flex={1}>
-        <Image
-          alt={'Login Image'}
-          objectFit={'cover'}
-          src={
-            'https://images.unsplash.com/photo-1527689368864-3a821dbccc34?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
-          }
-        />
-      </Flex>
-    </Stack>
+    <Box bg='white'>
+    <Box w="100%" h="80vh" bgGradient='linear(to-br, #00E5BA, #B074FD)' borderRadius={'0% 0% 27% 62% / 14% 10% 1% 3%'}>
+      <HStack w="100%" justify="space-evenly" pt='6rem'>
+        <HStack minH='50vh' w="70%" justify="space-evenly" >
+          <HStack  w="100%" justify="space-evenly" >
+            <Box w='30%'>
+              <Text fontSize="5xl" color={"#00283A"} fontWeight="semibold">Spot and Stop Rumors with RumorGuard</Text>
+              <Text fontSize="xl" color={"#00283A"}  mt="2rem">From the nation’s leading provider of news literacy resources</Text>
+              <Button bg="#164F66" mt='2rem' borderRadius="full" fontWeight="bold" fontSize={"sm"} px="2rem"
+                 _hover={{
+                  transform: "scale(1.1)", // Grows by 10%
+                }}
+                transition="transform 0.2s ease-in-out, background-color 0.2s ease-in-out" // Smooth transition
+             >Explore More</Button>
+            </Box>
+            <Box w="40%" bg="black" h="100%">f</Box>
+            
+          </HStack>
+        </HStack>
+        </HStack>
+    </Box>
+    <Box w="100%" h="80vh" bg='white'>
+    </Box>
+    </Box>
   )
 }
