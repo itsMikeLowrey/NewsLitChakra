@@ -6,7 +6,7 @@ import {
   Text,
   Button
 } from '@chakra-ui/react'
-
+import Quiz from '../components/Quiz'
 export default function SplitScreen() {
   return (
     <Box bg='white'>
@@ -24,14 +24,14 @@ export default function SplitScreen() {
                 transition="transform 0.2s ease-in-out, background-color 0.2s ease-in-out" // Smooth transition
              >Explore More</Button>
             </Box>
-            <Box w="40%" bg="black" h="100%">f</Box>
+            <Box w="40%" h="100%"> <Quiz/></Box>
             
           </HStack>
         </HStack>
         </HStack>
     </Box>
-    <Box w="100%" h="80vh" bg='white'>
-    </Box>
+    <Box bg='white' h='20vh'></Box>
+ 
     </Box>
   )
 }

@@ -1,13 +1,13 @@
 'use client'
 
-import MyComponent from '../components/CTA'
+import CTA from '../components/CTA'
 import NavBar from '../components/NavBar'
 
 export default function WithSubnavigation() {
   return (
     <div>
     <NavBar/>
-    <MyComponent/>
+    <CTA/>
     </div>
   )
 }
