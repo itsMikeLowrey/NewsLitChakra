@@ -7,8 +7,9 @@ import {
   Button
 } from '@chakra-ui/react'
 import '../components/Quiz'
-
+import { MyLitComponentWrapper } from './test';
 export default function SplitScreen() {
+  const items = ['Apple', 'Banana', 'Cherry']; // Items to pass
   return (
     <Box bg='white'>
     <Box w="100%" h="80vh" bgGradient='linear(to-br, #00E5BA, #B074FD)' borderRadius={'0% 0% 27% 62% / 14% 10% 1% 3%'}>
@@ -27,7 +28,7 @@ export default function SplitScreen() {
              </Button>
             </Box>
             <Box w="40%" h="100%"> 
-              <my-lit-component name="React"/>
+              <MyLitComponentWrapper items={items}></MyLitComponentWrapper>
             </Box>
             
           </HStack>
