@@ -4,7 +4,13 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "compile": "next build --dry-run"
+    "compile": "next build --dry-run",
+    "prepare": "husky"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run compile"
+    }
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.2",
@@ -29,10 +35,5 @@
     "@types/react-dom": "^18.0.0",
     "husky": "^9.1.7",
     "typescript": "^4.9.5"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run compile"
-    }
-}
+  }
 }

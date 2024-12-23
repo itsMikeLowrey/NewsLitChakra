@@ -1,5 +1,11 @@
 import { LitElement, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
+interface Item {
+  picture: string;
+  date: number;
+  question: string;
+  answer: boolean;
+}
 
 export class MyLitComponent extends LitElement {
   
