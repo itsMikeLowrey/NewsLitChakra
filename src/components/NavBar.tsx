@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Box,
@@ -6,71 +6,71 @@ import {
   Text,
   HStack,
   IconButton,
-  Button,
   Stack,
   Collapse,
   Icon,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
   useColorModeValue,
-  useBreakpointValue,
-  useDisclosure,
-} from '@chakra-ui/react'
-import {
-  HamburgerIcon,
-  CloseIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-} from '@chakra-ui/icons'
-import { Image } from "@chakra-ui/react"
+} from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import { Image } from "@chakra-ui/react";
 
 export default function NavBar() {
-  const { isOpen, onToggle } = useDisclosure()
+  // const { isOpen, onToggle } = useDisclosure();
   return (
     <nav>
       <Flex
-        bg={'#000000'}
-        color={'white'}
-        minH={'100px'}
+        bg={"#000000"}
+        color={"white"}
+        minH={"100px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
         w="100%"
-        borderStyle={'solid'}
-        borderColor={'#000000'}
-        align={'center'}>
+        borderStyle={"solid"}
+        borderColor={"#000000"}
+        align={"center"}
+      >
         <Flex
-          flex={{ base: 1, md: 'auto' }}
+          flex={{ base: 1, md: "auto" }}
           ml={{ base: -2 }}
           w="100%"
-          display={{ base: 'flex', md: 'none' }}>
+          display={{ base: "flex", md: "none" }}
+        >
           <IconButton
-            onClick={onToggle}
-            icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
-            variant={'ghost'}
-            aria-label={'Toggle Navigation'}
+            // onClick={onToggle}
+            variant={"ghost"}
+            aria-label={"Toggle Navigation"}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} w="100%">
-        <Image src="https://www.rumorguard.org/images/nlp-logo.svg" alt="" />
-        <Image src="https://www.rumorguard.org/images/rumorguard-logo.svg" alt="" height="50px" ml= {5}/>
-          <Flex display={{ base: 'none', md: 'flex' }} ml={10} w="100%">
+        <Flex
+          flex={{ base: 1 }}
+          justify={{ base: "center", md: "start" }}
+          w="100%"
+        >
+          <Image src="https://www.rumorguard.org/images/nlp-logo.svg" alt="" />
+          <Image
+            src="https://www.rumorguard.org/images/rumorguard-logo.svg"
+            alt=""
+            height="50px"
+            ml={5}
+          />
+          <Flex display={{ base: "none", md: "flex" }} ml={10} w="100%">
             <DesktopNav />
           </Flex>
         </Flex>
 
         <Stack
           flex={{ base: 1, md: 0 }}
-          justify={'flex-end'}
-          direction={'row'}
-          spacing={6}>
+          justify={"flex-end"}
+          direction={"row"}
+          spacing={6}
+        >
           <Icon
             viewBox="0 0 24 24"
             w={6}
             h={6}
             color="white"
-            _hover={{ color: '#00E5BA' }}
+            _hover={{ color: "#00E5BA" }}
           >
             <path
               fill="currentColor"
@@ -80,16 +80,16 @@ export default function NavBar() {
         </Stack>
       </Flex>
 
-      <Collapse in={isOpen} animateOpacity>
+      <Collapse animateOpacity>
         <MobileNav />
       </Collapse>
     </nav>
-  )
+  );
 }
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue('gray.600', 'gray.200')
-  const linkHoverColor = useColorModeValue('gray.800', 'white')
+  // const linkColor = useColorModeValue('gray.600', 'gray.200')
+  // const linkHoverColor = useColorModeValue('gray.800', 'white')
   // const popoverContentBgColor = useColorModeValue('white', 'gray.800')
 
   return (
@@ -97,28 +97,34 @@ const DesktopNav = () => {
       <HStack w="60%" justify="space-evenly">
         {NAV_ITEMS.map((navItem) => (
           <Box key={navItem.labelBottom}>
-                  <Box>  
-                    <Box
-                    as="a"
-                    w="100%"
-                    href={navItem.href ?? '#'}
-                    color={'white'}
-                    _hover={{
-                      textDecoration: 'none',
-                      color: '#00E5BA',
-                    }}> 
-                      <Box p={0} m={0} lineHeight="1.1">
-                        <Text p={0} m={0} as="span" fontSize="xl">{navItem.labelTop}</Text><br/>
-                        <Text p={0} m={0} as="span" fontSize="2xl" fontWeight="bold">{navItem.labelBottom}</Text>
-                      </Box>
-                    </Box>
+            <Box>
+              <Box
+                as="a"
+                w="100%"
+                href={navItem.href ?? "#"}
+                color={"white"}
+                _hover={{
+                  textDecoration: "none",
+                  color: "#00E5BA",
+                }}
+              >
+                <Box p={0} m={0} lineHeight="1.1">
+                  <Text p={0} m={0} as="span" fontSize="xl">
+                    {navItem.labelTop}
+                  </Text>
+                  <br />
+                  <Text p={0} m={0} as="span" fontSize="2xl" fontWeight="bold">
+                    {navItem.labelBottom}
+                  </Text>
                 </Box>
+              </Box>
+            </Box>
           </Box>
         ))}
       </HStack>
     </HStack>
-  )
-}
+  );
+};
 
 /* const DesktopSubNav = ({ labelTop, href }: NavItem) => {
   return (
@@ -160,19 +166,23 @@ const DesktopNav = () => {
 
 const MobileNav = () => {
   return (
-    <Stack bg={useColorModeValue('white', 'gray.800')} p={4} display={{ md: 'none' }}>
+    <Stack
+      bg={useColorModeValue("white", "gray.800")}
+      p={4}
+      display={{ md: "none" }}
+    >
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.labelBottom} {...navItem} />
       ))}
     </Stack>
-  )
-}
+  );
+};
 
 const MobileNavItem = ({ labelTop }: NavItem) => {
-  const { isOpen, onToggle } = useDisclosure()
+  // const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Stack spacing={4} onClick={onToggle}>
+    <Stack spacing={4}>
       <Box
         py={2}
         as="a"
@@ -180,61 +190,64 @@ const MobileNavItem = ({ labelTop }: NavItem) => {
         justifyContent="space-between"
         alignItems="center"
         _hover={{
-          textDecoration: 'none',
-        }}>
-        <Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
+          textDecoration: "none",
+        }}
+      >
+        <Text
+          fontWeight={600}
+          color={useColorModeValue("gray.600", "gray.200")}
+        >
           {labelTop}
         </Text>
-        {(
+        {
           <Icon
             as={ChevronDownIcon}
-            transition={'all .25s ease-in-out'}
-            transform={isOpen ? 'rotate(180deg)' : ''}
+            transition={"all .25s ease-in-out"}
             w={6}
             h={6}
           />
-        )}
+        }
       </Box>
 
-      <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
+      <Collapse animateOpacity style={{ marginTop: "0!important" }}>
         <Stack
           mt={2}
           pl={4}
           borderLeft={1}
-          borderStyle={'solid'}
-          borderColor={useColorModeValue('gray.200', 'gray.700')}
-          align={'start'}>
-        </Stack>
+          borderStyle={"solid"}
+          borderColor={useColorModeValue("gray.200", "gray.700")}
+          align={"start"}
+        ></Stack>
       </Collapse>
     </Stack>
-  )
-}
+  );
+};
 
 interface NavItem {
-  labelTop: string
-  labelBottom: string
-  href?: string
+  labelTop: string;
+  labelBottom: string;
+  href?: string;
 }
 
 const NAV_ITEMS: Array<NavItem> = [
   {
-    labelTop: 'Recent',
-    labelBottom: 'Checks',
+    labelTop: "Recent",
+    labelBottom: "Checks",
     // href: '#',
   },
   {
-    labelTop: 'The',
-    labelBottom: 'Factors'
+    labelTop: "The",
+    labelBottom: "Factors",
     // href: '#',
   },
   {
-    labelTop: 'The',
-    labelBottom: 'Topics'
+    labelTop: "The",
+    labelBottom: "Topics",
     // href: '#',
   },
   {
-    labelTop: 'Take',
-    labelBottom: 'Action'
+    labelTop: "Take",
+    labelBottom: "Action",
     // href: '#',
   },
-]
+];

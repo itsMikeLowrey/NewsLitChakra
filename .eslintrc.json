@@ -1,0 +1,12 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "plugins": ["prettier"],
+  "rules": {
+    // Add your custom rules here
+  }
+}
