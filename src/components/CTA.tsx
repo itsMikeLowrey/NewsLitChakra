@@ -6,7 +6,9 @@ import {
   Text,
   Button
 } from '@chakra-ui/react'
-import Quiz from '../components/Quiz'
+import '../components/Quiz'
+import React from 'react'
+
 export default function SplitScreen() {
   return (
     <Box bg='white'>
@@ -17,14 +19,17 @@ export default function SplitScreen() {
             <Box w='30%'>
               <Text fontSize="5xl" color={"#00283A"} fontWeight="semibold">Spot and Stop Rumors with RumorGuard</Text>
               <Text fontSize="xl" color={"#00283A"}  mt="2rem">From the nation’s leading provider of news literacy resources</Text>
-              <Button bg="#164F66" mt='2rem' borderRadius="full" fontWeight="bold" fontSize={"sm"} px="2rem"
+              <Button bg="#164F66" mt='2rem' borderRadius="full" fontWeight="bold" fontSize={"sm"} px="2rem" color={'white'}
                  _hover={{
-                  transform: "scale(1.1)", // Grows by 10%
+                  transform: "scale(1.1)",
                 }}
-                transition="transform 0.2s ease-in-out, background-color 0.2s ease-in-out" // Smooth transition
-             >Explore More</Button>
+                transition="transform 0.2s ease-in-out, background-color 0.2s ease-in-out"
+             >Explore More
+             </Button>
             </Box>
-            <Box w="40%" h="100%"> <Quiz/></Box>
+            <Box w="40%" h="100%"> 
+              <my-lit-component name="React"/>
+            </Box>
             
           </HStack>
         </HStack>
