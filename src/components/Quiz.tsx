@@ -1,26 +1,47 @@
-// my-lit-component.js
-import { LitElement, html, css } from 'lit'
-import { property } from 'lit/decorators.js';
+import {LitElement, html, css} from 'lit'
+import {customElement, property} from 'lit/decorators.js'
 
-class MyLitComponent extends LitElement {
+// @customElement("my-element")
+export class MyElement extends LitElement {
+  // Styles are scoped to this element: they won't conflict with styles
+  // on the main page or in other components. Styling API can be exposed
+  // via CSS custom properties.
   static styles = css`
     :host {
-      display: block;
-      padding: 16px;
-      background-color: black;
-      border-radius: 8px;
+      display: inline-block;
+      padding: 10px;
+      background: lightgray;
+    }
+    .planet {
+      color: var(--planet-color, blue);
     }
   `;
-  @property({ type: String })
-  name: string = 'World';
-  constructor() {
-    super();
-    this.name = 'World';
+
+
+  // Define reactive properties--updating a reactive property causes
+  // the component to update.
+  @property() greeting = "Hello";
+  @property() planet = "World";
+
+  // The render() method is called any time reactive properties change.
+  // Return HTML in a string template literal tagged with the `html`
+  // tag function to describe the component's internal DOM.
+  // Expressions can set attribute values, property values, event handlers,
+  // and child nodes/text.
+  render() {
+    return html`
+      <span @click=${this.togglePlanet}
+        >${this.greeting}
+        <span class="planet">${this.planet}</span>
+      </span>
+    `;
   }
 
-  render() {
-    return html`<p>Hello, ${this.name}!</p>`;
+  // Event handlers can update the state of @properties on the element
+  // instance, causing it to re-render
+  togglePlanet() {
+    this.planet = this.planet === "World" ? "Mars" : "World";
   }
 }
 
-customElements.define('my-lit-component', MyLitComponent);
+customElements.define('my-lit-component', MyElement)
