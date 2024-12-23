@@ -35,7 +35,7 @@ export default function SplitScreen() {
         </HStack>
         </HStack>
     </Box>
-    <Box bg='white' h='20vh'></Box>
+    <Box bgColor='white' h='20vh'></Box>
  
     </Box>
   )
