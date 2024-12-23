@@ -4,13 +4,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "compile": "next build --dry-run",
+    "compile": "next build",
     "prepare": "husky"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run compile"
-    }
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.2",
