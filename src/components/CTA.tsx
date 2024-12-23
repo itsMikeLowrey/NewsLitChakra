@@ -9,7 +9,18 @@ import {
 import '../components/Quiz'
 import { MyLitComponentWrapper } from './test';
 export default function SplitScreen() {
-  const items = ['Apple', 'Banana', 'Cherry']; // Items to pass
+  const items = [
+    {  picture: '⁦https://www.rumorguard.org/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Foxdwsi28%2Fproduction%2Fc3a2f21abb36fd44335fdcc6172abd6d7f705a92-688x835.png&w=1920&q=75⁩',
+      date: 1734930917,
+      question: 'Did JFK Call To Ban Coke?',
+      answer: false
+    },
+    {  picture: '⁦https://www.rumorguard.org/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Foxdwsi28%2Fproduction%2Fb3efeb89f1fa651dc0c4c672e02a3ac2af43afd1-696x866.png&w=1920&q=75⁩',
+      date: 1734900654,
+      question: 'Did World Leaders call for a death treaty?',
+      answer: false
+    }
+  ]
   return (
     <Box bg='white'>
     <Box w="100%" h="80vh" bgGradient='linear(to-br, #00E5BA, #B074FD)' borderRadius={'0% 0% 27% 62% / 14% 10% 1% 3%'}>
