@@ -7,6 +7,7 @@ interface Item {
   answer: boolean;
   article: string;
 }
+const averageScore = 50;
 
 export class MyLitComponent extends LitElement {
   @property({ type: Array })
@@ -19,6 +20,10 @@ export class MyLitComponent extends LitElement {
   private answerShowing: boolean = false;
   @state()
   private quizOver: boolean = false;
+  @state()
+  private numberCorrect: number = 0;
+  @state()
+  private score: number = 0;
 
   render() {
     return html`
@@ -61,20 +66,30 @@ export class MyLitComponent extends LitElement {
       <div ?hidden=${!this.quizOver}>
       Quiz Over
       </div>
+      <div >Your Score: ${this.score}%</div>
+      <div >Average Score: ${averageScore}%</div>
     `;
   }
 
   nextQuestion() {
     if (this.items.length === this.count + 1) {
-      this.quizOver = true
+      this.quizOver = true;
       return;
     }
     this.answerShowing = false;
-    this.count = this.count + 1;
+    this.count += 1;
   }
   answerQuestion(answer: boolean) {
-    console.log(answer);
+    if (answer === this.items[this.count].answer) {
+      this.numberCorrect += 1;
+    }
     this.answerShowing = true;
+    this.setSCore(this.numberCorrect, this.count + 1);
+  }
+  setSCore(numberCorrect: number, questionNumber: number) {
+    this.score = parseFloat(
+      ((numberCorrect / questionNumber) * 100).toFixed(0),
+    );
   }
 }
 
