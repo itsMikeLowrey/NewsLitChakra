@@ -1,5 +1,8 @@
 import { LitElement, html } from "lit";
 import { property, state } from "lit/decorators.js";
+import '@shoelace-style/shoelace/dist/themes/light.css';
+import '@shoelace-style/shoelace/dist/components/button/button.js';
+
 interface Item {
   picture: string;
   date: number;
@@ -31,7 +34,8 @@ export class MyLitComponent extends LitElement {
       <div class="item">
         <div class="item-title">Question#${this.count + 1}:</div>
         <div>${this.items[this.count].date}</div>
-        <div>${this.items[this.count].picture}</div>
+        <img src="${this.items[this.count].picture}" alt="Girl in a jacket" width="500" height="600">
+        <div></div>
         <div>${this.items[this.count].question}</div>
         <div ?hidden=${!this.answerShowing}>
           ${this.items[this.count].article}
@@ -68,6 +72,8 @@ export class MyLitComponent extends LitElement {
       </div>
       <div >Your Score: ${this.score}%</div>
       <div >Average Score: ${averageScore}%</div>
+      <sl-button>Click me</sl-button>
+
     `;
   }
 
