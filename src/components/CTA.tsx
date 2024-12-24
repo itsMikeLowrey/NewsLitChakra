@@ -11,6 +11,7 @@ export default function SplitScreen() {
       date: 1734930917,
       question: "Did JFK Call To Ban Coke?",
       answer: false,
+      article: 'https://www.rumorguard.org/post/no-rfk-jr-didn-t-call-to-ban-diet-coke'
     },
     {
       picture:
@@ -18,6 +19,7 @@ export default function SplitScreen() {
       date: 1734900654,
       question: "Did World Leaders call for a death treaty?",
       answer: false,
+      article: 'https://www.rumorguard.org/post/no-world-leaders-didn-t-sign-age-of-death-treaty'
     },
   ];
   return (
