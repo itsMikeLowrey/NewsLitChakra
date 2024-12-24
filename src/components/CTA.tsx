@@ -7,7 +7,13 @@ import React, { useState, useEffect } from "react";
 
 import { client } from "./../sanity/client";
 
-const POSTS_QUERY = `*[_type == "post"]`;
+const POSTS_QUERY = `*[_type == "post"]{
+  "image": image.asset->url,
+    "answer": answer,
+    "question": question,
+    "article": article,
+    "date": publishedAt
+}`;
 
 const options = { next: { revalidate: 30 } };
 /* interface Post {

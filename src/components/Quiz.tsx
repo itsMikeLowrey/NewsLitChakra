@@ -1,10 +1,10 @@
-import { LitElement, html } from "lit";
+import { LitElement, html, css } from "lit";
 import { property, state } from "lit/decorators.js";
 import "@shoelace-style/shoelace/dist/themes/light.css";
 import "@shoelace-style/shoelace/dist/components/button/button.js";
 
 interface Item {
-  picture: string;
+  image: string;
   date: number;
   question: string;
   answer: boolean;
@@ -15,7 +15,7 @@ const averageScore = 50;
 export class MyLitComponent extends LitElement {
   @property({ type: Array })
   items: null | Item[] = [
-    { picture: "", date: 0, question: "", answer: false, article: "" },
+    { image: "", date: 0, question: "", answer: false, article: "" },
   ];
   @state()
   private count: number = 0;
@@ -27,16 +27,23 @@ export class MyLitComponent extends LitElement {
   private numberCorrect: number = 0;
   @state()
   private score: number = 0;
+  static styles = css`
+img{
+max-width: 75%;
+max-height: 75%
+}
+`;
 
   render() {
     return html`
       ${this.items === null
         ? html`<p>Loading...</p>`
         : html`    <div ?hidden=${this.items && this.quizOver}>
+      <div>
+      <img src="${this.items[this.count].image}">
       <div class="item" ?hidden=${this.quizOver}>
         <div class="item-title">Question#${this.count + 1}:</div>
         <div>${this.items[this.count].date}</div>
-        <div>${this.items[this.count].picture}</div>
         <div></div>
         <div>${this.items[this.count].question}</div>
         <div ?hidden=${!this.answerShowing}>
@@ -67,6 +74,7 @@ export class MyLitComponent extends LitElement {
       >
         False
       </button>
+      </div>
       </div>
       </div>
       <div ?hidden=${!this.quizOver}>
