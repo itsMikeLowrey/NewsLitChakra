@@ -14,7 +14,7 @@ const averageScore = 50;
 
 export class MyLitComponent extends LitElement {
   @property({ type: Array })
-  items: Item[] = [
+  items: null | Item[] = [
     { picture: "", date: 0, question: "", answer: false, article: "" },
   ];
   @state()
@@ -30,9 +30,9 @@ export class MyLitComponent extends LitElement {
 
   render() {
     return html`
-    ${this.items === null
-      ? html`<p>Loading...</p>`
-      : html`    <div ?hidden=${this.items && this.quizOver}>
+      ${this.items === null
+        ? html`<p>Loading...</p>`
+        : html`    <div ?hidden=${this.items && this.quizOver}>
       <div class="item" ?hidden=${this.quizOver}>
         <div class="item-title">Question#${this.count + 1}:</div>
         <div>${this.items[this.count].date}</div>
@@ -75,11 +75,13 @@ export class MyLitComponent extends LitElement {
       <div >Your Score: ${this.score}%</div>
       <div >Average Score: ${averageScore}%</div>
       <sl-button>Click me</sl-button>`}
-
     `;
   }
 
   nextQuestion() {
+    if (this.items === null) {
+      return;
+    }
     if (this.items.length === this.count + 1) {
       this.quizOver = true;
       return;
@@ -88,6 +90,9 @@ export class MyLitComponent extends LitElement {
     this.count += 1;
   }
   answerQuestion(answer: boolean) {
+    if (this.items === null) {
+      return;
+    }
     if (answer === this.items[this.count].answer) {
       this.numberCorrect += 1;
     }

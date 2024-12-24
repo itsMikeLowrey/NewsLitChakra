@@ -3,37 +3,28 @@
 import { Box, HStack, Text, Button } from "@chakra-ui/react";
 import "../components/Quiz";
 import { MyLitComponentWrapper } from "./test";
-import { type SanityDocument } from "next-sanity";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import { createClient } from "next-sanity";
-
-export const client = createClient({
-  projectId: "4d72iriu",
-  dataset: "production",
-  apiVersion: "2024-01-01",
-  useCdn: false,
- });
+import { client } from "./../sanity/client";
 
 const POSTS_QUERY = `*[_type == "post"]`;
 
 const options = { next: { revalidate: 30 } };
-interface Post {
+/* interface Post {
   id: number;
   title: string;
   body: string;
-}
+} */
 
-interface Props {
+/* interface Props {
   posts: Post[];
-}
+} */
 
-
-export default function cta() {
+export default function CTA() {
   const [data, setData] = useState(null);
   useEffect(() => {
     async function fetchData() {
-      const response = await client.fetch<SanityDocument[]>(POSTS_QUERY, {}, options);
+      const response = await client.fetch(POSTS_QUERY, {}, options);
       const json = await response;
       setData(json);
     }
@@ -41,7 +32,7 @@ export default function cta() {
     fetchData();
   }, []); // Empty dependency array means the effect runs once on mount
   // const posts = await client.fetch<SanityDocument[]>(POSTS_QUERY, {}, options);
-  const items = data
+  const items = data;
   return (
     <Box bg="white">
       <Box
