@@ -1,7 +1,5 @@
 import { LitElement, html, css } from "lit";
 import { property, state } from "lit/decorators.js";
-import "@shoelace-style/shoelace/dist/themes/light.css";
-import "@shoelace-style/shoelace/dist/components/button/button.js";
 
 interface Item {
   image: string;
@@ -27,62 +25,96 @@ export class MyLitComponent extends LitElement {
   private numberCorrect: number = 0;
   @state()
   private score: number = 0;
-  static styles = css`
-img{
-max-width: 75%;
-max-height: 75%
-}
-`;
+  static styles = css``;
 
   render() {
     return html`
+      <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous"
+      />
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"
+      />
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdregistrationsJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"
+      ></script>
       ${this.items === null
         ? html`<p>Loading...</p>`
-        : html`    <div ?hidden=${this.items && this.quizOver}>
-      <div>
-      <img src="${this.items[this.count].image}">
-      <div class="item" ?hidden=${this.quizOver}>
-        <div class="item-title">Question#${this.count + 1}:</div>
-        <div>${this.items[this.count].date}</div>
-        <div></div>
-        <div>${this.items[this.count].question}</div>
-        <div ?hidden=${!this.answerShowing}>
-          ${this.items[this.count].article}
-        </div>
-        <div ?hidden=${!this.answerShowing}>
-          ${this.items[this.count].answer}
-        </div>
-      </div>
-      <button
-        ?hidden=${!this.answerShowing}
-        class="button"
-        @click=${() => this.nextQuestion()}
-      >
-        Next Question
-      </button>
-      <button
-        ?hidden=${this.answerShowing}
-        class="button"
-        @click=${() => this.answerQuestion(true)}
-      >
-        True
-      </button>
-      <button
-        ?hidden=${this.answerShowing}
-        class="button"
-        @click=${() => this.answerQuestion(false)}
-      >
-        False
-      </button>
-      </div>
-      </div>
-      </div>
-      <div ?hidden=${!this.quizOver}>
-      Quiz Over
-      </div>
-      <div >Your Score: ${this.score}%</div>
-      <div >Average Score: ${averageScore}%</div>
-      <sl-button>Click me</sl-button>`}
+        : html`
+            <div ?hidden=${this.items && this.quizOver}>
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <img src="${this.items[this.count].image}" />
+                  </div>
+                  <div class="col">
+                    <div class="item" ?hidden=${this.quizOver}>
+                      <div>${this.items[this.count].date}</div>
+                      <div class="item-title">Question#${this.count + 1}:</div>
+                      <div></div>
+                      <div>${this.items[this.count].question}</div>
+                      <div ?hidden=${!this.answerShowing}>
+                        ${this.items[this.count].article}
+                      </div>
+                      <div ?hidden=${!this.answerShowing}>
+                        ${this.items[this.count].answer}
+                      </div>
+                    </div>
+                    <button
+                      ?hidden=${!this.answerShowing}
+                      type="button"
+                      class="btn btn-info"
+                      @click=${() => this.nextQuestion()}
+                    >
+                      Next Question
+                    </button>
+                    <button
+                      ?hidden=${this.answerShowing}
+                      type="button"
+                      class="btn btn-success"
+                      @click=${() => this.answerQuestion(true)}
+                    >
+                      True
+                    </button>
+                    <button
+                      ?hidden=${this.answerShowing}
+                      type="button"
+                      class="btn btn-danger"
+                      @click=${() => this.answerQuestion(false)}
+                    >
+                      False
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-sm">
+                  <div ?hidden=${!this.quizOver}>Quiz Over</div>
+                  <div>Your Score: ${this.score}%</div>
+                  <div>Average Score: ${averageScore}%</div>
+                </div>
+              </div>
+            </div>
+          `}
     `;
   }
 

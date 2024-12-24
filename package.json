@@ -25,7 +25,7 @@
     "@sanity/image-url": "^1.1.0",
     "@sanity/types": "^3.68.3",
     "@sanity/vision": "^3.68.3",
-    "@shoelace-style/shoelace": "^2.19.1",
+    "bootstrap": "^5.3.3",
     "framer-motion": "^6.3.0",
     "lit": "^3.2.1",
     "lit-element": "^4.1.1",
