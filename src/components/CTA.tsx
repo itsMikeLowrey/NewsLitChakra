@@ -73,7 +73,7 @@ export default function CTA() {
                   Explore More
                 </Button>
               </Box>
-              <Box w="40%" h="100%">
+              <Box w="60%" h="100%">
                 <MyLitComponentWrapper items={items}></MyLitComponentWrapper>
               </Box>
             </HStack>

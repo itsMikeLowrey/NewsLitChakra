@@ -25,7 +25,11 @@ export class MyLitComponent extends LitElement {
   private numberCorrect: number = 0;
   @state()
   private score: number = 0;
-  static styles = css``;
+  static styles = css`
+    img {
+      width: 100%;
+    }
+  `;
 
   render() {
     return html`
@@ -47,7 +51,7 @@ export class MyLitComponent extends LitElement {
       ></script>
       <script
         src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdregistrationsJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
         crossorigin="anonymous"
       ></script>
       <script
@@ -58,66 +62,85 @@ export class MyLitComponent extends LitElement {
       ${this.items === null
         ? html`<p>Loading...</p>`
         : html`
+            <div class='bg-success' ?hidden=${!this.quizOver}>Quiz Over!</div>
             <div ?hidden=${this.items && this.quizOver}>
-              <div class="container">
+              <div class="container p-4 rounded">
                 <div class="row">
                   <div class="col">
-                    <img src="${this.items[this.count].image}" />
+                    <img
+                      src="${this.items[this.count].image}"
+                      class="rounded"
+                    />
                   </div>
-                  <div class="col">
-                    <div class="item" ?hidden=${this.quizOver}>
-                      <div>${this.items[this.count].date}</div>
-                      <div class="item-title">Question#${this.count + 1}:</div>
-                      <div></div>
-                      <div>${this.items[this.count].question}</div>
-                      <div ?hidden=${!this.answerShowing}>
-                        ${this.items[this.count].article}
-                      </div>
-                      <div ?hidden=${!this.answerShowing}>
-                        ${this.items[this.count].answer}
+                  <div class="col bg-dark ">
+                    <div
+                      class="d-flex align-items-center justify-content-center h-100"
+                    >
+                      <div>
+                        <p>
+                          ${this.convertEpochToDate(
+                            this.items[this.count].date,
+                          )}
+                        </p>
+                        <p>Question# ${this.count + 1}:</p>
+                        <p>${this.items[this.count].question}</p>
+
+                        <button
+                          ?hidden=${!this.answerShowing}
+                          type="button"
+                          class="btn btn-info"
+                          @click=${() => this.nextQuestion()}
+                        >
+                          Next Question
+                        </button>
+                        <button
+                          ?hidden=${this.answerShowing}
+                          type="button"
+                          class="btn btn-success"
+                          @click=${() => this.answerQuestion(true)}
+                        >
+                          True
+                        </button>
+                        <button
+                          ?hidden=${this.answerShowing}
+                          type="button"
+                          class="btn btn-danger"
+                          @click=${() => this.answerQuestion(false)}
+                        >
+                          False
+                        </button>
+                        <div ?hidden=${!this.answerShowing}>
+                          ${this.items[this.count].article}
+                        </div>
+                        <div ?hidden=${!this.answerShowing}>
+                          ${this.items[this.count].answer}
+                        </div>
                       </div>
                     </div>
-                    <button
-                      ?hidden=${!this.answerShowing}
-                      type="button"
-                      class="btn btn-info"
-                      @click=${() => this.nextQuestion()}
-                    >
-                      Next Question
-                    </button>
-                    <button
-                      ?hidden=${this.answerShowing}
-                      type="button"
-                      class="btn btn-success"
-                      @click=${() => this.answerQuestion(true)}
-                    >
-                      True
-                    </button>
-                    <button
-                      ?hidden=${this.answerShowing}
-                      type="button"
-                      class="btn btn-danger"
-                      @click=${() => this.answerQuestion(false)}
-                    >
-                      False
-                    </button>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="container">
-              <div class="row">
-                <div class="col-sm">
-                  <div ?hidden=${!this.quizOver}>Quiz Over</div>
-                  <div>Your Score: ${this.score}%</div>
-                  <div>Average Score: ${averageScore}%</div>
+                <div class="row bg-dark">
+                  <div class="col">
+                    <div ?hidden=${!this.quizOver}>Quiz Over</div>
+                    <div>Your Score: ${this.score}%</div>
+                    <div>Average Score: ${averageScore}%</div>
+                  </div>
                 </div>
               </div>
             </div>
           `}
     `;
   }
-
+  convertEpochToDate(epochTime: number) {
+    const date = new Date(epochTime);
+    return (
+      date.getUTCDate() +
+      "-" +
+      (date.getUTCMonth() + 1) +
+      "-" +
+      date.getUTCFullYear()
+    );
+  }
   nextQuestion() {
     if (this.items === null) {
       return;
