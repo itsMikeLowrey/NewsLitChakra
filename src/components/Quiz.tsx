@@ -1,7 +1,7 @@
 import { LitElement, html } from "lit";
 import { property, state } from "lit/decorators.js";
-import '@shoelace-style/shoelace/dist/themes/light.css';
-import '@shoelace-style/shoelace/dist/components/button/button.js';
+import "@shoelace-style/shoelace/dist/themes/light.css";
+import "@shoelace-style/shoelace/dist/components/button/button.js";
 
 interface Item {
   picture: string;
@@ -30,11 +30,13 @@ export class MyLitComponent extends LitElement {
 
   render() {
     return html`
-    <div ?hidden=${this.quizOver}>
-      <div class="item">
+    ${this.items === null
+      ? html`<p>Loading...</p>`
+      : html`    <div ?hidden=${this.items && this.quizOver}>
+      <div class="item" ?hidden=${this.quizOver}>
         <div class="item-title">Question#${this.count + 1}:</div>
         <div>${this.items[this.count].date}</div>
-        <img src="${this.items[this.count].picture}" alt="Girl in a jacket" width="500" height="600">
+        <div>${this.items[this.count].picture}</div>
         <div></div>
         <div>${this.items[this.count].question}</div>
         <div ?hidden=${!this.answerShowing}>
@@ -72,7 +74,7 @@ export class MyLitComponent extends LitElement {
       </div>
       <div >Your Score: ${this.score}%</div>
       <div >Average Score: ${averageScore}%</div>
-      <sl-button>Click me</sl-button>
+      <sl-button>Click me</sl-button>`}
 
     `;
   }

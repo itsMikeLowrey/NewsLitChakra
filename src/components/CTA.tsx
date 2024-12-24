@@ -3,27 +3,45 @@
 import { Box, HStack, Text, Button } from "@chakra-ui/react";
 import "../components/Quiz";
 import { MyLitComponentWrapper } from "./test";
+import { type SanityDocument } from "next-sanity";
+import React, { useState, useEffect } from 'react';
+
+import { createClient } from "next-sanity";
+
+export const client = createClient({
+  projectId: "4d72iriu",
+  dataset: "production",
+  apiVersion: "2024-01-01",
+  useCdn: false,
+ });
+
+const POSTS_QUERY = `*[_type == "post"]`;
+
+const options = { next: { revalidate: 30 } };
+interface Post {
+  id: number;
+  title: string;
+  body: string;
+}
+
+interface Props {
+  posts: Post[];
+}
+
+
 export default function cta() {
-  const items = [
-    {
-      picture:
-        "⁦https://www.rumorguard.org/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Foxdwsi28%2Fproduction%2Fc3a2f21abb36fd44335fdcc6172abd6d7f705a92-688x835.png&w=1920&q=75⁩",
-      date: 1734930917,
-      question: "Did JFK Call To Ban Coke?",
-      answer: false,
-      article:
-        "https://www.rumorguard.org/post/no-rfk-jr-didn-t-call-to-ban-diet-coke",
-    },
-    {
-      picture:
-        "⁦https://www.rumorguard.org/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Foxdwsi28%2Fproduction%2Fb3efeb89f1fa651dc0c4c672e02a3ac2af43afd1-696x866.png&w=1920&q=75⁩",
-      date: 1734900654,
-      question: "Did World Leaders call for a death treaty?",
-      answer: false,
-      article:
-        "https://www.rumorguard.org/post/no-world-leaders-didn-t-sign-age-of-death-treaty",
-    },
-  ];
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await client.fetch<SanityDocument[]>(POSTS_QUERY, {}, options);
+      const json = await response;
+      setData(json);
+    }
+
+    fetchData();
+  }, []); // Empty dependency array means the effect runs once on mount
+  // const posts = await client.fetch<SanityDocument[]>(POSTS_QUERY, {}, options);
+  const items = data
   return (
     <Box bg="white">
       <Box
