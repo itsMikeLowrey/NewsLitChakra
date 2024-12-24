@@ -62,7 +62,7 @@ export class MyLitComponent extends LitElement {
       ${this.items === null
         ? html`<p>Loading...</p>`
         : html`
-            <div class='bg-success' ?hidden=${!this.quizOver}>Quiz Over!</div>
+            <div class="bg-success" ?hidden=${!this.quizOver}>Quiz Over!</div>
             <div ?hidden=${this.items && this.quizOver}>
               <div class="container p-4 rounded">
                 <div class="row">
