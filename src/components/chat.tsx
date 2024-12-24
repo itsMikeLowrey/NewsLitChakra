@@ -1,41 +1,32 @@
-
-import React, { useState } from 'react';
-import axios from 'axios';
-import {
-  Box,
-  Flex,
-  Text,
-  HStack,
-  IconButton,
-  Stack,
-  Collapse,
-  Icon,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import React, { useState } from "react";
+import axios from "axios";
+import { Box } from "@chakra-ui/react";
 
 const Chat = () => {
-  const [input, setInput] = useState('');
-  const [response, setResponse] = useState('');
+  const [input, setInput] = useState("");
+  const [response] = useState("");
 
   const sendMessage = async () => {
     const API_URL = "/api/chat";
-    const password = "test"; 
-  
+    const password = "test";
+
     const messages = [
       { role: "system", content: "You are a helpful assistant." },
       { role: "user", content: "What is the capital of France?" },
     ];
-
 
     try {
       const response = await axios.post(API_URL, {
         messages,
         password,
       });
-  
+
       console.log("ChatGPT API Response:", response.data);
-    } catch (error: any) {
-      console.error("Error calling ChatGPT API:", error.response?.data || error.message);
+    } catch (error) {
+      console.error(
+        "Error calling ChatGPT API:",
+        error.response?.data || error.message,
+      );
     }
   };
 
@@ -50,7 +41,7 @@ const Chat = () => {
         />
         <button onClick={sendMessage}>Send</button>
       </div>
-      <Box bg='black' h="5" >
+      <Box bg="black" h="5">
         <p>{response}</p>
       </Box>
     </Box>
@@ -58,8 +49,6 @@ const Chat = () => {
 };
 
 export default Chat;
-
-
 
 /* 
 import React, { useState } from 'react';

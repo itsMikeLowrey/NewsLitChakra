@@ -12,7 +12,7 @@ type ChatGPTRequest = {
 };
 
 type ChatGPTResponse = {
-  data: any;
+  data;
 };
 
 export default async function handler(
@@ -50,8 +50,8 @@ export default async function handler(
 
     const responseData: ChatGPTResponse = response.data;
 
-    return res.status(200).json({ responseData, messages} ) ;
-  } catch (error: any) {
+    return res.status(200).json({ responseData, messages });
+  } catch (error) {
     console.error("Error accessing OpenAI API:", error.response?.data || error);
 
     return res.status(500).json({
