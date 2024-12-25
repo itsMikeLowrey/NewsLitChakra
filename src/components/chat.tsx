@@ -1,27 +1,62 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Box } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
+import Zipcode from "./zipcode";
+import SelectNewsSite from "./selectNewsSite";
+const password = "test";
+const API_URL = "/api/chat";
 
-const Chat = () => {
-  const [input, setInput] = useState("");
-  const [response] = useState("");
+const Chat: React.FC = () => {
+  const [zipcode, setZipcode] = useState("");
+  const [words, setWords] = useState(["", "", ""]);
+  const [step, setStep] = useState(0);
+  const [newsURL] = useState("");
 
-  const sendMessage = async () => {
-    const API_URL = "/api/chat";
-    const password = "test";
+  const handleZipSubmit = () => {
+    sendFirstMessage();
+  };
 
-    const messages = [
-      { role: "system", content: "You are a helpful assistant." },
-      { role: "user", content: "What is the capital of France?" },
-    ];
+  const [messages, setMessages] = useState([
+    {
+      role: "system",
+      content:
+        "You are a helpful assistant that helps me find local news articles.You always respond in JSON. Always.",
+    },
+  ]);
 
+  const addStep = () => {
+    let updatedStep;
+    setStep((prevStep) => {
+      updatedStep = prevStep + 1;
+      return updatedStep;
+    });
+    return updatedStep;
+  };
+
+  const sendFirstMessage = async () => {
     try {
+      const newMessage = {
+        role: "user",
+        content: `Give me 3 local news websites in the area of ${zipcode}. Please give me these 3 in a json array with no extra words, just a list json list of the local websites.`,
+      };
+
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+
+      const updatedMessages = [...messages, newMessage];
+
       const response = await axios.post(API_URL, {
-        messages,
+        messages: updatedMessages,
         password,
       });
+      const assistantMessage = {
+        role: "assistant",
+        content: JSON.parse(
+          response.data.responseData.choices[0].message.content,
+        ),
+      };
 
-      console.log("ChatGPT API Response:", response.data);
+      setMessages((prevMessages) => [...prevMessages, assistantMessage]);
+      addStep();
     } catch (error) {
       console.error(
         "Error calling ChatGPT API:",
@@ -31,84 +66,28 @@ const Chat = () => {
   };
 
   return (
-    <Box bg="blue.200">
-      <div>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Type your message"
-        />
-        <button onClick={sendMessage}>Send</button>
-      </div>
-      <Box bg="black" h="5">
-        <p>{response}</p>
-      </Box>
-    </Box>
+    <HStack w="100%" justify="space-evenly" bg="white" minHeight={"75vh"}>
+      <HStack
+        w="60%"
+        justify="space-evenly"
+        bg="#A27DF8"
+        mt="E"
+        p="1rem"
+        borderRadius="lg"
+      >
+        {step === 0 && (
+          <Zipcode
+            zipcode={zipcode}
+            setZipcode={setZipcode}
+            words={words}
+            setWords={setWords}
+            onSubmit={handleZipSubmit}
+          />
+        )}
+        {step === 1 && <SelectNewsSite newsURL={newsURL} messages={messages} />}
+      </HStack>
+    </HStack>
   );
 };
 
 export default Chat;
-
-/* 
-import React, { useState } from 'react';
-import axios from 'axios';
-import {
-  Box,
-  Flex,
-  Text,
-  HStack,
-  IconButton,
-  Stack,
-  Collapse,
-  Icon,
-  useColorModeValue,
-} from "@chakra-ui/react";
-
-const Chat = () => {
-  const [input, setInput] = useState('');
-  const [response, setResponse] = useState('');
-
-  const sendMessage = async () => {
-    try {
-      const apiUrl = 'https://api.openai.com/v1/chat/completions'; // Correct API endpoint
-      const apiKey = ''; // Replace with your actual API key
-      const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      };
-
-      const requestBody = {
-        model: 'gpt-4-turbo', // Ensure you specify the model
-        messages: [{ role: 'user', content: input }],
-      };  
-      console.log(input)
-
-      const { data } = await axios.post(apiUrl, requestBody, { headers });
-      console.log(data)
-      setResponse(data.choices[0].message.content);
-    } catch (error) {
-      console.error('Error sending message:', error.response?.data || error);
-    }
-  };
-
-  return (
-    <Box bg="blue.200">
-      <div>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Type your message"
-        />
-        <button onClick={sendMessage}>Send</button>
-      </div>
-      <Box bg='black' h="5" >
-        <p>{response}</p>
-      </Box>
-    </Box>
-  );
-};
-
-export default Chat;
- */

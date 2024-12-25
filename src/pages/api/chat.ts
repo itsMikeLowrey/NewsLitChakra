@@ -50,7 +50,7 @@ export default async function handler(
 
     const responseData: ChatGPTResponse = response.data;
 
-    return res.status(200).json({ responseData, messages });
+    return res.status(200).json({ responseData });
   } catch (error) {
     console.error("Error accessing OpenAI API:", error.response?.data || error);
 

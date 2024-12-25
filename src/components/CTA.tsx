@@ -80,7 +80,6 @@ export default function CTA() {
           </HStack>
         </HStack>
       </Box>
-      <Box bgColor="white" h="20vh"></Box>
     </Box>
   );
 }
