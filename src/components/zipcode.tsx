@@ -7,18 +7,12 @@ interface ChildProps {
   onSubmit: () => void;
 }
 
-const Zipcode: React.FC<ChildProps> = ({
-  zipcode,
-  setZipcode,
-  words,
-  setWords,
-  onSubmit,
-}) => {
-  const updateWord = (index: number, value: string) => {
+const Zipcode: React.FC<ChildProps> = ({ zipcode, setZipcode, onSubmit }) => {
+  /*   const updateWord = (index: number, value: string) => {
     const newWords = [...words];
     newWords[index] = value;
     setWords(newWords);
-  };
+  }; */
   const submit = () => {
     onSubmit();
   };
@@ -39,7 +33,7 @@ const Zipcode: React.FC<ChildProps> = ({
             placeholder="Enter zipcode"
             maxLength={5}
           />
-          <div>
+          {/*           <div>
             <label>First Word:</label>
             <input
               type="text"
@@ -67,7 +61,7 @@ const Zipcode: React.FC<ChildProps> = ({
               onChange={(e) => updateWord(2, e.target.value)}
               placeholder="Enter third word"
             />
-          </div>
+          </div> */}
         </div>
         <Button
           bg="#164F66"
