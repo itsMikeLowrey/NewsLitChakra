@@ -25,12 +25,7 @@ const Chat: React.FC = () => {
   ]);
 
   const addStep = () => {
-    let updatedStep;
-    setStep((prevStep) => {
-      updatedStep = prevStep + 1;
-      return updatedStep;
-    });
-    return updatedStep;
+    setStep(step + 1);
   };
 
   const sendFirstMessage = async () => {
