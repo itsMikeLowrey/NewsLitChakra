@@ -8,11 +8,6 @@ interface ChildProps {
 }
 
 const Zipcode: React.FC<ChildProps> = ({ zipcode, setZipcode, onSubmit }) => {
-  /*   const updateWord = (index: number, value: string) => {
-    const newWords = [...words];
-    newWords[index] = value;
-    setWords(newWords);
-  }; */
   const submit = () => {
     onSubmit();
   };

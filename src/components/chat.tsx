@@ -3,6 +3,7 @@ import axios from "axios";
 import { HStack } from "@chakra-ui/react";
 import Zipcode from "./zipcode";
 import SelectNewsSite from "./selectNewsSite";
+import SelectArticle from "./selectArticle";
 const password = "test";
 const API_URL = "/api/chat";
 const API_URL2 = "/api/toMarkdown";
@@ -11,14 +12,21 @@ const Chat: React.FC = () => {
   const [zipcode, setZipcode] = useState("");
   const [words, setWords] = useState(["", "", ""]);
   const [step, setStep] = useState(0);
-  const [newsURL] = useState("");
-
+  const [newsURL, setnewsURL] = useState("");
+  const [newsHomepage, setnewsHomepage] = useState("");
+  const [articlePage, setarticlePage] = useState("");
+  console.log(newsHomepage, articlePage);
   const handleZipSubmit = () => {
     sendFirstMessage();
   };
   const handleSiteSelection = (arg: number) => {
-    console.log("selecting news site", arg);
+    console.log("selecting news site", arg + 1);
     sendSecondMessage(arg);
+  };
+
+  const handleArticleSelection = (arg: number) => {
+    console.log("selecting article", arg + 1);
+    sendThirdMessage(arg);
   };
 
   const [messages, setMessages] = useState([
@@ -43,12 +51,8 @@ const Chat: React.FC = () => {
       };
 
       setMessages((prevMessages) => [...prevMessages, newMessage]);
-
+      console.log("getting news sites choice");
       const updatedMessages = [...messages, newMessage];
-      const response2 = await axios.post(API_URL2, {
-        urls: "http://www.cdispatch.com",
-      });
-      console.log(response2.data.data.article);
       const response = await axios.post(API_URL, {
         messages: updatedMessages,
         password,
@@ -71,13 +75,19 @@ const Chat: React.FC = () => {
   };
   const sendSecondMessage = async (choice) => {
     try {
+      const selectedLink = [...messages][2].content["localNewsWebsites"][choice]
+        .link;
+      setnewsURL(selectedLink);
+      const response2 = await axios.post(API_URL2, {
+        urls: selectedLink,
+      });
+      const urlMarkdown = response2.data.data.article;
+      setnewsHomepage(urlMarkdown);
       const newMessage = {
         role: "user",
-        content: `
-        Use a web browsing tool to search for the three most recent news articles published on the website https://cdispatch.com choicse ${choice}. Provide the article titles, publication dates, brief summaries, and direct URLs to the articles. Ensure the information is current and accurate, as it is needed for a school project.
+        content: ` Please read this markdown of a news website: ${urlMarkdown}. Please give me 3 interesting and recent articles from the homepage.
+       The response should follow this format exactly: articles: [ {title, link}, {title, link}]
         `,
-        /*         The response json should be an array with 3 article titles as strings and a link to the article. Do not label the strings, just list the articles in the array. 
-        I can tell which article it is by the inex of the array. */
       };
 
       setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -89,7 +99,7 @@ const Chat: React.FC = () => {
         messages: updatedMessages,
         password,
       });
-
+      console.log(urlMarkdown);
       console.log(response.data.responseData.choices[0].message.content);
       const assistantMessage = {
         role: "assistant",
@@ -107,7 +117,48 @@ const Chat: React.FC = () => {
       );
     }
   };
+  const sendThirdMessage = async (choice) => {
+    try {
+      const chosenArticle = [...messages][4].content["articles"][choice];
+      const response2 = await axios.post(API_URL2, {
+        urls: chosenArticle.link,
+      });
+      const urlMarkdown = response2.data.data.article;
+      setarticlePage(urlMarkdown);
+      const newMessage = {
+        role: "user",
+        content: ` Please read this markdown of a news article from the last message I sent you: ${urlMarkdown}. Please give me 
+        2 truths and a lie about this article. Please make the lie believebale and use facts from the article in all 3 statements.
+       The response should follow this format exactly: [ {statment, (true or false)}, {title, link]
+        `,
+      };
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
 
+      const updatedMessages = [...messages, newMessage];
+      updatedMessages[2].content = JSON.stringify(updatedMessages[2].content);
+      updatedMessages[4].content = JSON.stringify(updatedMessages[4].content);
+
+      const response = await axios.post(API_URL, {
+        messages: updatedMessages,
+        password,
+      });
+      const assistantMessage = {
+        role: "assistant",
+        content: JSON.parse(
+          response.data.responseData.choices[0].message.content,
+        ),
+      };
+
+      setMessages((prevMessages) => [...prevMessages, assistantMessage]);
+      console.log(assistantMessage);
+      addStep();
+    } catch (error) {
+      console.error(
+        "Error calling ChatGPT API:",
+        error.response?.data || error.message,
+      );
+    }
+  };
   return (
     <HStack w="100%" justify="space-evenly" bg="white" minHeight={"75vh"}>
       <HStack
@@ -132,6 +183,12 @@ const Chat: React.FC = () => {
             newsURL={newsURL}
             messages={messages}
             onSubmit={handleSiteSelection}
+          />
+        )}
+        {step === 2 && (
+          <SelectArticle
+            messages={messages}
+            onSubmit={handleArticleSelection}
           />
         )}
       </HStack>
