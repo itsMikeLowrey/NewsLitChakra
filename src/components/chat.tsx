@@ -48,7 +48,8 @@ const Chat: React.FC = () => {
         role: "user",
         content: `Give me 3 local news websites in the area of ${zipcode}. 
         Please give me these 3 in a json array with no extra words, just a list json list of the local websites with the newspaper name and link.
-        The array of websites should be named localNewsWebsites. The localNewsWebsites should have newspaperName and link as the name of the keys.`,
+        The array of websites should be named localNewsWebsites. The localNewsWebsites should have newspaperName and link as the name of the keys. 
+        Formatting things in this manner is very important since the output is used by a simple api.`,
       };
       const updatedMessages = [...messages, newMessage];
       const response = await axios.post(API_URL, {
@@ -96,6 +97,7 @@ const Chat: React.FC = () => {
         role: "user",
         content: ` Please read this markdown of a news website: ${urlMarkdown}. Please give me 3 interesting and recent articles from the homepage.
        The response should follow this format exactly: articles: [ {title, link}, {title, link}]
+       Formatting things in this manner is very important since the output is used by a simple api.
         `,
       };
 
@@ -141,6 +143,7 @@ const Chat: React.FC = () => {
         content: ` Please read this markdown of a news article from the last message I sent you: ${urlMarkdown}. Please give me 
         2 truths and a lie about this article. Please make the lie believebale and use facts from the article in all 3 statements.
        The response should follow this format exactly: [ {statment, truth}, {statement, truth} }
+       Formatting things in this manner is very important since the output is used by a simple api.
         `,
       };
 
