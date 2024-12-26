@@ -9,7 +9,7 @@
     "lint": "next lint",
     "typeCheck": "npx tsc --noEmit",
     "prettier": "npx prettier --write  --ignore-unknown .",
-    "check": "npm-run-all prettier lint build"
+    "check": "npm-run-all typeCheck prettier lint build"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.2",
