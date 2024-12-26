@@ -4,6 +4,7 @@ import { HStack } from "@chakra-ui/react";
 import Zipcode from "./zipcode";
 import SelectNewsSite from "./selectNewsSite";
 import SelectArticle from "./selectArticle";
+import DisplayQuestions from "./displayQuestions";
 const password = "test";
 const API_URL = "/api/chat";
 const API_URL2 = "/api/toMarkdown";
@@ -15,7 +16,14 @@ const Chat: React.FC = () => {
   const [newsURL, setnewsURL] = useState("");
   const [newsHomepage, setnewsHomepage] = useState("");
   const [articlePage, setarticlePage] = useState("");
-  console.log(newsHomepage, articlePage);
+
+  const [messages, setMessages] = useState([
+    {
+      role: "system",
+      content:
+        "You are a helpful assistant that helps me find local news articles.You always respond in JSON. Always.",
+    },
+  ]);
   const handleZipSubmit = () => {
     sendFirstMessage();
   };
@@ -29,13 +37,10 @@ const Chat: React.FC = () => {
     sendThirdMessage(arg);
   };
 
-  const [messages, setMessages] = useState([
-    {
-      role: "system",
-      content:
-        "You are a helpful assistant that helps me find local news articles.You always respond in JSON. Always.",
-    },
-  ]);
+  const messageNameChange = (newItem) => {
+    setMessages((prevUser) => ([ ...prevUser, newItem ]));
+  };
+
 
   const addStep = () => {
     setStep(step + 1);
@@ -49,9 +54,6 @@ const Chat: React.FC = () => {
         Please give me these 3 in a json array with no extra words, just a list json list of the local websites with the newspaper name and link.
         The array of websites should be named localNewsWebsites. The localNewsWebsites should have newspaperName and link as the name of the keys.`,
       };
-
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
-      console.log("getting news sites choice");
       const updatedMessages = [...messages, newMessage];
       const response = await axios.post(API_URL, {
         messages: updatedMessages,
@@ -63,8 +65,8 @@ const Chat: React.FC = () => {
           response.data.responseData.choices[0].message.content,
         ),
       };
-
-      setMessages((prevMessages) => [...prevMessages, assistantMessage]);
+      messageNameChange(newMessage)
+      messageNameChange(assistantMessage)
       addStep();
     } catch (error) {
       console.error(
@@ -74,6 +76,7 @@ const Chat: React.FC = () => {
     }
   };
   const sendSecondMessage = async (choice) => {
+    console.log(messages)
     try {
       const selectedLink = [...messages][2].content["localNewsWebsites"][choice]
         .link;
@@ -90,8 +93,6 @@ const Chat: React.FC = () => {
         `,
       };
 
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
-
       const updatedMessages = [...messages, newMessage];
       updatedMessages[2].content = JSON.stringify(updatedMessages[2].content);
 
@@ -99,16 +100,13 @@ const Chat: React.FC = () => {
         messages: updatedMessages,
         password,
       });
-      console.log(urlMarkdown);
-      console.log(response.data.responseData.choices[0].message.content);
       const assistantMessage = {
         role: "assistant",
         content: JSON.parse(
           response.data.responseData.choices[0].message.content,
         ),
       };
-
-      setMessages((prevMessages) => [...prevMessages, assistantMessage]);
+      setMessages((prevMessages) => [...prevMessages, newMessage, assistantMessage]);
       addStep();
     } catch (error) {
       console.error(
@@ -129,7 +127,7 @@ const Chat: React.FC = () => {
         role: "user",
         content: ` Please read this markdown of a news article from the last message I sent you: ${urlMarkdown}. Please give me 
         2 truths and a lie about this article. Please make the lie believebale and use facts from the article in all 3 statements.
-       The response should follow this format exactly: [ {statment, (true or false)}, {title, link]
+       The response should follow this format exactly: [ {statment, truth}, {statement, truth} }
         `,
       };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -148,9 +146,7 @@ const Chat: React.FC = () => {
           response.data.responseData.choices[0].message.content,
         ),
       };
-
       setMessages((prevMessages) => [...prevMessages, assistantMessage]);
-      console.log(assistantMessage);
       addStep();
     } catch (error) {
       console.error(
@@ -191,6 +187,7 @@ const Chat: React.FC = () => {
             onSubmit={handleArticleSelection}
           />
         )}
+        {step === 3 && <DisplayQuestions messages={messages} />}
       </HStack>
     </HStack>
   );

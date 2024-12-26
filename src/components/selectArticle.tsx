@@ -2,7 +2,7 @@ import { Box, Button, Text } from "@chakra-ui/react";
 
 interface Message {
   role: string;
-  content: string;
+  content: string | object;
 }
 
 interface ChildProps {
@@ -10,9 +10,14 @@ interface ChildProps {
   onSubmit: (arg: number) => void;
 }
 
-const Zipcode: React.FC<ChildProps> = ({ messages, onSubmit }) => {
-  const lastMessage = messages[4];
+const Select: React.FC<ChildProps> = ({ messages, onSubmit }) => {
+  let lastMessage = messages[4];
+  
+  if (!lastMessage.content["articles"]) {
+    return <div></div>;
+  }
   return (
+    
     <div>
       <Box w="100%" p="1rem">
         <Text fontSize="3xl" color={"#00283A"} fontWeight="semibold">
@@ -68,4 +73,4 @@ const Zipcode: React.FC<ChildProps> = ({ messages, onSubmit }) => {
   );
 };
 
-export default Zipcode;
+export default Select;
