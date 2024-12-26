@@ -16,6 +16,9 @@ const Chat: React.FC = () => {
   const [newsURL, setnewsURL] = useState("");
   const [newsHomepage, setnewsHomepage] = useState("");
   const [articlePage, setarticlePage] = useState("");
+  const [chosenArticleLink, setchosenArticleLink] = useState("");
+
+  console.log(newsHomepage, articlePage);
 
   const [messages, setMessages] = useState([
     {
@@ -38,9 +41,8 @@ const Chat: React.FC = () => {
   };
 
   const messageNameChange = (newItem) => {
-    setMessages((prevUser) => ([ ...prevUser, newItem ]));
+    setMessages((prevUser) => [...prevUser, newItem]);
   };
-
 
   const addStep = () => {
     setStep(step + 1);
@@ -65,8 +67,8 @@ const Chat: React.FC = () => {
           response.data.responseData.choices[0].message.content,
         ),
       };
-      messageNameChange(newMessage)
-      messageNameChange(assistantMessage)
+      messageNameChange(newMessage);
+      messageNameChange(assistantMessage);
       addStep();
     } catch (error) {
       console.error(
@@ -76,7 +78,7 @@ const Chat: React.FC = () => {
     }
   };
   const sendSecondMessage = async (choice) => {
-    console.log(messages)
+    console.log(messages);
     try {
       const selectedLink = [...messages][2].content["localNewsWebsites"][choice]
         .link;
@@ -106,7 +108,11 @@ const Chat: React.FC = () => {
           response.data.responseData.choices[0].message.content,
         ),
       };
-      setMessages((prevMessages) => [...prevMessages, newMessage, assistantMessage]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        newMessage,
+        assistantMessage,
+      ]);
       addStep();
     } catch (error) {
       console.error(
@@ -121,6 +127,7 @@ const Chat: React.FC = () => {
       const response2 = await axios.post(API_URL2, {
         urls: chosenArticle.link,
       });
+      setchosenArticleLink(chosenArticle.link);
       const urlMarkdown = response2.data.data.article;
       setarticlePage(urlMarkdown);
       const newMessage = {
@@ -187,7 +194,12 @@ const Chat: React.FC = () => {
             onSubmit={handleArticleSelection}
           />
         )}
-        {step === 3 && <DisplayQuestions messages={messages} />}
+        {step === 3 && (
+          <DisplayQuestions
+            messages={messages}
+            articlePage={chosenArticleLink}
+          />
+        )}
       </HStack>
     </HStack>
   );

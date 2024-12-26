@@ -11,13 +11,12 @@ interface ChildProps {
 }
 
 const Select: React.FC<ChildProps> = ({ messages, onSubmit }) => {
-  let lastMessage = messages[4];
-  
+  const lastMessage = messages[4];
+
   if (!lastMessage.content["articles"]) {
     return <div></div>;
   }
   return (
-    
     <div>
       <Box w="100%" p="1rem">
         <Text fontSize="3xl" color={"#00283A"} fontWeight="semibold">
