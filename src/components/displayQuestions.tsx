@@ -19,7 +19,7 @@ function getArray(lastMessage) {
 
 const Display: React.FC<ChildProps> = ({ messages, articlePage }) => {
   const lastMessage = messages[6];
-  console.log(messages[6]["content"]);
+  console.log(messages[6]["content"][0]);
   const value = getArray(lastMessage);
   return (
     <div>

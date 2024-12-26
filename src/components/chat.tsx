@@ -14,11 +14,9 @@ const Chat: React.FC = () => {
   const [words, setWords] = useState(["", "", ""]);
   const [step, setStep] = useState(0);
   const [newsURL, setnewsURL] = useState("");
-  const [newsHomepage, setnewsHomepage] = useState("");
-  const [articlePage, setarticlePage] = useState("");
+  const [_newsHomepage, setnewsHomepage] = useState("");
+  const [_articlePage, setarticlePage] = useState("");
   const [chosenArticleLink, setchosenArticleLink] = useState("");
-
-  console.log(newsHomepage, articlePage);
 
   const [messages, setMessages] = useState([
     {
@@ -40,10 +38,6 @@ const Chat: React.FC = () => {
     sendThirdMessage(arg);
   };
 
-  const messageNameChange = (newItem) => {
-    setMessages((prevUser) => [...prevUser, newItem]);
-  };
-
   const addStep = () => {
     setStep(step + 1);
   };
@@ -61,15 +55,25 @@ const Chat: React.FC = () => {
         messages: updatedMessages,
         password,
       });
-      const assistantMessage = {
-        role: "assistant",
-        content: JSON.parse(
-          response.data.responseData.choices[0].message.content,
-        ),
-      };
-      messageNameChange(newMessage);
-      messageNameChange(assistantMessage);
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          role: "assistant",
+          content: JSON.parse(
+            response.data.responseData.choices[0].message.content,
+          ),
+        },
+      ]);
       addStep();
+      console.log([
+        {
+          role: "assistant",
+          content: JSON.parse(
+            response.data.responseData.choices[0].message.content,
+          ),
+        },
+      ]);
     } catch (error) {
       console.error(
         "Error calling ChatGPT API:",
@@ -96,10 +100,11 @@ const Chat: React.FC = () => {
       };
 
       const updatedMessages = [...messages, newMessage];
-      updatedMessages[2].content = JSON.stringify(updatedMessages[2].content);
+      const apiDeepCopy = JSON.parse(JSON.stringify(updatedMessages));
+      apiDeepCopy[2].content = JSON.stringify(apiDeepCopy[2].content);
 
       const response = await axios.post(API_URL, {
-        messages: updatedMessages,
+        messages: apiDeepCopy,
         password,
       });
       const assistantMessage = {
@@ -122,6 +127,7 @@ const Chat: React.FC = () => {
     }
   };
   const sendThirdMessage = async (choice) => {
+    console.log(messages);
     try {
       const chosenArticle = [...messages][4].content["articles"][choice];
       const response2 = await axios.post(API_URL2, {
@@ -137,14 +143,14 @@ const Chat: React.FC = () => {
        The response should follow this format exactly: [ {statment, truth}, {statement, truth} }
         `,
       };
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
 
       const updatedMessages = [...messages, newMessage];
-      updatedMessages[2].content = JSON.stringify(updatedMessages[2].content);
-      updatedMessages[4].content = JSON.stringify(updatedMessages[4].content);
+      const apiDeepCopy = JSON.parse(JSON.stringify(updatedMessages));
+      apiDeepCopy[2].content = JSON.stringify(apiDeepCopy[2].content);
+      apiDeepCopy[4].content = JSON.stringify(apiDeepCopy[4].content);
 
       const response = await axios.post(API_URL, {
-        messages: updatedMessages,
+        messages: apiDeepCopy,
         password,
       });
       const assistantMessage = {
@@ -153,7 +159,11 @@ const Chat: React.FC = () => {
           response.data.responseData.choices[0].message.content,
         ),
       };
-      setMessages((prevMessages) => [...prevMessages, assistantMessage]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        newMessage,
+        assistantMessage,
+      ]);
       addStep();
     } catch (error) {
       console.error(

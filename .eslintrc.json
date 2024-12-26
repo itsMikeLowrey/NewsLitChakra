@@ -10,6 +10,10 @@
     // Add your custom rules here
     "@typescript-eslint/ban-ts-comment": "warn", // Warn for unused variables
     "prettier/prettier": "error", // Enforce Prettier formatting
-    "react/jsx-boolean-value": ["error", "never"] // Enforce shorthand boolean props in JSX
+    "react/jsx-boolean-value": ["error", "never"], // Enforce shorthand boolean props in JSX,
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+    ]
   }
 }
