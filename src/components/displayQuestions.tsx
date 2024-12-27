@@ -35,7 +35,7 @@ const Display: React.FC<ChildProps> = ({ messages, articlePage }) => {
         {value["content"].map((item, statement) => (
           <Box key={statement} mt="1rem">
             <Text fontSize="2xl" color={"#00283A"} fontWeight="">
-              Statment: {item.statement}
+              Statment: {item.statement}.
             </Text>
             <Text fontSize="md" color={"#00283A"} fontWeight="">
               This Statement is:{" "}

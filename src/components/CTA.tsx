@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, HStack, Text, Button } from "@chakra-ui/react";
+import { Box, HStack, Text, Button, Link } from "@chakra-ui/react";
 import "../components/Quiz";
 import { MyLitComponentWrapper } from "./test";
 import React, { useState, useEffect } from "react";
@@ -43,7 +43,7 @@ export default function CTA() {
     <Box bg="white">
       <Box
         w="100%"
-        h="80vh"
+        h="85vh"
         bgGradient="linear(to-br, #00E5BA, #B074FD)"
         borderRadius={"0% 0% 27% 62% / 14% 10% 1% 3%"}
       >
@@ -57,21 +57,23 @@ export default function CTA() {
                 <Text fontSize="xl" color={"#00283A"} mt="2rem">
                   From the nation’s leading provider of news literacy resources
                 </Text>
-                <Button
-                  bg="#164F66"
-                  mt="2rem"
-                  borderRadius="full"
-                  fontWeight="bold"
-                  fontSize={"sm"}
-                  px="2rem"
-                  color={"white"}
-                  _hover={{
-                    transform: "scale(1.1)",
-                  }}
-                  transition="transform 0.2s ease-in-out, background-color 0.2s ease-in-out"
-                >
-                  Explore More
-                </Button>
+                <Link href="https://www.rumorguard.org/about">
+                  <Button
+                    bg="#164F66"
+                    mt="2rem"
+                    borderRadius="full"
+                    fontWeight="bold"
+                    fontSize={"sm"}
+                    px="2rem"
+                    color={"white"}
+                    _hover={{
+                      transform: "scale(1.1)",
+                    }}
+                    transition="transform 0.2s ease-in-out, background-color 0.2s ease-in-out"
+                  >
+                    Explore More
+                  </Button>
+                </Link>
               </Box>
               <Box w="60%" h="100%">
                 <MyLitComponentWrapper items={items}></MyLitComponentWrapper>

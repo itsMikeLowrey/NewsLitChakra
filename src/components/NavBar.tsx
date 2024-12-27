@@ -46,6 +46,7 @@ export default function NavBar() {
           flex={{ base: 1 }}
           justify={{ base: "center", md: "start" }}
           w="100%"
+          ml="3rem"
         >
           <Image src="https://www.rumorguard.org/images/nlp-logo.svg" alt="" />
           <Image
@@ -64,6 +65,7 @@ export default function NavBar() {
           justify={"flex-end"}
           direction={"row"}
           spacing={6}
+          mr={"3rem"}
         >
           <Icon
             viewBox="0 0 24 24"

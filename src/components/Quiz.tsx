@@ -62,9 +62,60 @@ export class MyLitComponent extends LitElement {
       ${this.items === null
         ? html`<p>Loading...</p>`
         : html`
-            <div class="bg-success" ?hidden=${!this.quizOver}>Quiz Over!</div>
-            <div ?hidden=${this.items && this.quizOver}>
-              <div class="container p-4 rounded">
+            <div
+              class="font-weight-bold container"
+              ?hidden=${!this.quizOver}
+              style="background-color: #00283A;border-radius: 25px;"
+            >
+              <div class="d-flex justify-content-center">
+                <div class="pt-3 text-white">
+                  <h1 class="">Quiz Over</h1>
+                </div>
+              </div>
+              <div class="row justify-content-center my-1">
+                <div class="row justify-content-center">
+                  <div class="col-12">
+                    <h3 class="p-3 text-white text-center">
+                      Your Score: ${this.score}%
+                    </h3>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-12">
+                    <h3 class="p-3 text-white text-center">
+                      Average Score: ${averageScore}%
+                    </h3>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <div class="text-white">
+                    <h2 class="p-3">
+                      You Can Sharpen Your Rumor Detection Skills
+                      <a
+                        href="https://www.rumorguard.org/factors"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >here.</a
+                      >
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              ?hidden=${this.items && this.quizOver}
+              class=""
+              style="background-color: #00283A;border-radius: 25px;"
+            >
+              <div class="container">
+                <div class="d-flex justify-content-center">
+                  <div class="pt-3 text-white font-weight-bold " style='font-size: 2.5em;'>
+                    <p class="" ?hidden=${this.quizOver}>Rumor Quiz</p>
+                  </div>
+                </div>
+              </div>
+              <div class="container px-4 rounded">
                 <div class="row">
                   <div class="col">
                     <img
@@ -72,58 +123,95 @@ export class MyLitComponent extends LitElement {
                       class="rounded"
                     />
                   </div>
-                  <div class="col bg-dark ">
+                  <div class="col">
                     <div
                       class="d-flex align-items-center justify-content-center h-100"
                     >
                       <div>
-                        <p>
+                        <h5 class="p-0 m-0">
                           ${this.convertEpochToDate(
                             this.items[this.count].date,
                           )}
+                        </h5>
+                        <h3 class="p-0 m-0">Question# ${this.count + 1}:</h3>
+                        <p style="font-size: 1.5em" class="mt-3">
+                          ${this.items[this.count].question}
                         </p>
-                        <p>Question# ${this.count + 1}:</p>
-                        <p>${this.items[this.count].question}</p>
-
-                        <button
-                          ?hidden=${!this.answerShowing}
-                          type="button"
-                          class="btn btn-info"
-                          @click=${() => this.nextQuestion()}
-                        >
-                          Next Question
-                        </button>
-                        <button
-                          ?hidden=${this.answerShowing}
-                          type="button"
-                          class="btn btn-success"
-                          @click=${() => this.answerQuestion(true)}
-                        >
-                          True
-                        </button>
-                        <button
-                          ?hidden=${this.answerShowing}
-                          type="button"
-                          class="btn btn-danger"
-                          @click=${() => this.answerQuestion(false)}
-                        >
-                          False
-                        </button>
-                        <div ?hidden=${!this.answerShowing}>
-                          ${this.items[this.count].article}
+                        <div class="d-flex justify-content-center">
+                          <button
+                            ?hidden=${this.answerShowing}
+                            type="button"
+                            class="btn btn-success mx-2"
+                            @click=${() => this.answerQuestion(true)}
+                          >
+                            True
+                          </button>
+                          <button
+                            ?hidden=${this.answerShowing}
+                            type="button"
+                            class="btn btn-danger mx-2"
+                            @click=${() => this.answerQuestion(false)}
+                          >
+                            False
+                          </button>
                         </div>
+
                         <div ?hidden=${!this.answerShowing}>
-                          ${this.items[this.count].answer}
+                          <div class="container mt-1">
+                            <div class="row">
+                              <h3 class="p-0 text-white">
+                                This Rumor is:
+                                ${this.items[this.count].answer
+                                  .toString()
+                                  .charAt(0)
+                                  .toUpperCase() +
+                                this.items[this.count].answer
+                                  .toString()
+                                  .slice(1)}
+                              </h3>
+                            </div>
+                            <div class="row mt-1 justify-content-center">
+                              <div class="p-0">
+                                <button
+                                  type="button"
+                                  class="btn btn-secondary mx-2"
+                                  @click=${() => this.nextQuestion()}
+                                >
+                                  Next Question
+                                </button>
+                              </div>
+                            </div>
+                            <div class="row mt-3">
+                              <div class="p-0  text-white">
+                                More Info:
+                                <a
+                                  href=${this.items[this.count].article}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  >${this.items[this.count].article}</a
+                                >
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="row bg-dark">
-                  <div class="col">
-                    <div ?hidden=${!this.quizOver}>Quiz Over</div>
-                    <div>Your Score: ${this.score}%</div>
-                    <div>Average Score: ${averageScore}%</div>
+                <div class="row justify-content-center my-3">
+                  <div class="row justify-content-center">
+                    <div class="col-12">
+                      <h3 class="p-3 text-white text-center">
+                        Your Score: ${this.score}%
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="row justify-content-center">
+                    <div class="col-12">
+                      <h3 class="p-3 text-white text-center">
+                        Average Score: ${averageScore}%
+                      </h3>
+                    </div>
                   </div>
                 </div>
               </div>
