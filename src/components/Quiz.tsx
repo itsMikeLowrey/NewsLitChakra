@@ -136,7 +136,9 @@ export class MyLitComponent extends LitElement {
                             this.items[this.count].date,
                           )}
                         </h5>
-                        <h3 class="p-0 m-0 text-white">Question# ${this.count + 1}:</h3>
+                        <h3 class="p-0 m-0 text-white">
+                          Question# ${this.count + 1}:
+                        </h3>
                         <p style="font-size: 1.5em" class="mt-3 text-white">
                           ${this.items[this.count].question}
                         </p>
