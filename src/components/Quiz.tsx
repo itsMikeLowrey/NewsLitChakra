@@ -110,7 +110,10 @@ export class MyLitComponent extends LitElement {
             >
               <div class="container">
                 <div class="d-flex justify-content-center">
-                  <div class="pt-3 text-white font-weight-bold " style='font-size: 2.5em;'>
+                  <div
+                    class="pt-3 text-white font-weight-bold "
+                    style="font-size: 2.5em;"
+                  >
                     <p class="" ?hidden=${this.quizOver}>Rumor Quiz</p>
                   </div>
                 </div>
