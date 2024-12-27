@@ -1,39 +1,25 @@
-# Example app with [chakra-ui](https://github.com/chakra-ui/chakra-ui) and TypeScript
 
-This example features how to use [chakra-ui](https://github.com/chakra-ui/chakra-ui) as the component library within a Next.js app with TypeScript.
+# NLP Demo Project
 
-Next.js and chakra-ui have built-in TypeScript declarations, so we'll get autocompletion for their modules straight away.
+  
 
-We are connecting the Next.js `_app.js` with `chakra-ui`'s Provider and theme so the pages can have app-wide dark/light mode. We are also creating some components which shows the usage of `chakra-ui`'s style props.
+I built this to demonstrate a knowldge of NLP's tech stack and my creativity as a engineer. I was inspired by Snopes quiz and some AI products I have been exploring. I left out jquery, but I use it in my old projects here: 
+https://github.com/itsMikeLowrey/consentwebapp
 
-## Deploy your own
+  Here is a link to the sanity.io repo:
+  https://github.com/itsMikeLowrey/newslit
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-chakra-ui)
+ 
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-chakra-ui&project-name=with-chakra-ui&repository-name=with-chakra-ui)
+  
 
-## How to use
+## Cavets
+I would consider this a very basic proof of concept. 
+  
+* Lacks Testing
+* Only works on desktop
+* Requires webscraping
+* needs deep refactoring
+* ai response can be a hit or miss
 
-### Using `create-next-app`
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-chakra-ui with-chakra-ui-app
-```
-
-```bash
-yarn create next-app --example with-chakra-ui with-chakra-ui-app
-```
-
-```bash
-pnpm create next-app --example with-chakra-ui with-chakra-ui-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-
-## Notes
-
-Chakra has supported Gradients and RTL in `v1.1`. To utilize RTL, [add RTL direction and swap](https://chakra-ui.com/docs/features/rtl-support).
-
-If you don't have multi-direction app, you should make `<Html lang="ar" dir="rtl">` inside `_document.ts`.
+  
