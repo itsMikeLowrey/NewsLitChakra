@@ -1,4 +1,5 @@
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button, Text, Center, VStack, Input } from "@chakra-ui/react";
+import { useState } from "react";
 interface ChildProps {
   zipcode: string;
   setZipcode: (value: string) => void;
@@ -8,69 +9,62 @@ interface ChildProps {
 }
 
 const Zipcode: React.FC<ChildProps> = ({ zipcode, setZipcode, onSubmit }) => {
+  const [buttonvisible, setbuttonvisible] = useState(true);
   const submit = () => {
+    setbuttonvisible(false);
+    console.log("buttonPressed");
     onSubmit();
   };
 
   return (
     <div>
-      <Box w="70%" p="1rem">
-        <Text fontSize="3xl" color={"#00283A"} fontWeight="semibold">
-          This is an AI tool that helps teachers create quizes for students
-          based upon local news stories from their area.
-        </Text>
-        <div>
-          <label>Zipcode:</label>
-          <input
-            type="text"
-            value={zipcode}
-            onChange={(e) => setZipcode(e.target.value)}
-            placeholder="Enter zipcode"
-            maxLength={5}
-          />
-          {/*           <div>
-            <label>First Word:</label>
-            <input
-              type="text"
-              value={words[0]}
-              onChange={(e) => updateWord(0, e.target.value)}
-              placeholder="Enter first word"
-            />
-          </div>
+      <Box p="1rem" w="100%">
+        <Center h="">
+          <VStack>
+            <Center bg="" h="" w="80%" m="1rem">
+              <Text
+                fontSize="3xl"
+                color={"#00283A"}
+                fontWeight="semibold"
+                align={"left"}
+              >
+                This is an AI tool that helps teachers create quizes for
+                students based upon local news stories from their area.
+              </Text>
+            </Center>
+            <Center bg="" h="" w="80%">
+              <VStack>
+                <Text fontSize={"2xl"} px="2rem" color={"white"}>
+                  Please Enter Your Zipcode:
+                </Text>
+                <Input
+                  type="text"
+                  value={zipcode}
+                  onChange={(e) => setZipcode(e.target.value)}
+                  placeholder="Enter zipcode"
+                  maxLength={5}
+                  _placeholder={{ color: "white" }}
+                />
+              </VStack>
+            </Center>
+            {buttonvisible && (
+              <Button
+                bg="#164F66"
+                mt="1rem"
+                borderRadius="full"
+                fontWeight="bold"
+                fontSize={"md"}
+                px="2rem"
+                color={"white"}
+                onClick={submit}
+              >
+                Start
+              </Button>
+            )}
+          </VStack>
+        </Center>
 
-          <div>
-            <label>Second Word:</label>
-            <input
-              type="text"
-              value={words[1]}
-              onChange={(e) => updateWord(1, e.target.value)}
-              placeholder="Enter second word"
-            />
-          </div>
-
-          <div>
-            <label>Third Word:</label>
-            <input
-              type="text"
-              value={words[2]}
-              onChange={(e) => updateWord(2, e.target.value)}
-              placeholder="Enter third word"
-            />
-          </div> */}
-        </div>
-        <Button
-          bg="#164F66"
-          mt="2rem"
-          borderRadius="full"
-          fontWeight="bold"
-          fontSize={"md"}
-          px="2rem"
-          color={"white"}
-          onClick={submit}
-          transition="transform 0.2s ease-in-out, background-color 0.2s ease-in-out"
-        >
-          Start
-        </Button>
+        <div></div>
       </Box>
     </div>
   );

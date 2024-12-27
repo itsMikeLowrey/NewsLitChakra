@@ -1,5 +1,5 @@
 import { Box, Button, Text } from "@chakra-ui/react";
-
+import { useState } from "react";
 interface LocalNewsContent {
   localNewsWebsites: { newspaperName: string; link: string }[];
 }
@@ -16,6 +16,12 @@ interface ChildProps {
 }
 
 const Zipcode: React.FC<ChildProps> = ({ messages, onSubmit }) => {
+  const [buttonvisible, setbuttonvisible] = useState(true);
+  const submit = (arg: number) => {
+    setbuttonvisible(false);
+    console.log("buttonPressed");
+    onSubmit(arg);
+  };
   const lastMessage = messages[2];
 
   const isLocalNewsContent = (
@@ -40,49 +46,59 @@ const Zipcode: React.FC<ChildProps> = ({ messages, onSubmit }) => {
         </Text>
         <ol style={{ listStyleType: "none", padding: 0 }}>
           {lastMessage.content.localNewsWebsites.map((site, index) => (
-            <li key={index}>
-              {index + 1}. <strong>{site.newspaperName}</strong>
-              <br />
-              {site.link}
-            </li>
+            <Box my="1rem" key={index}>
+              <li>
+                <Text fontSize={"xl"}>
+                  {index + 1}. <strong>{site.newspaperName}</strong>
+                </Text>
+                <Text>{site.link}</Text>
+              </li>
+            </Box>
           ))}
         </ol>
-        <Button
-          bg="#164F66"
-          mt="2rem"
-          borderRadius="full"
-          fontWeight="bold"
-          fontSize={"md"}
-          px="2rem"
-          color={"white"}
-          onClick={() => onSubmit(0)}
-        >
-          Select 1
-        </Button>
-        <Button
-          bg="#164F66"
-          mt="2rem"
-          borderRadius="full"
-          fontWeight="bold"
-          fontSize={"md"}
-          px="2rem"
-          color={"white"}
-          onClick={() => onSubmit(1)}
-        >
-          Select 2
-        </Button>
-        <Button
-          bg="#164F66"
-          mt="2rem"
-          borderRadius="full"
-          fontWeight="bold"
-          fontSize={"md"}
-          px="2rem"
-          color={"white"}
-          onClick={() => onSubmit(2)}
-        >
-          Select 3
-        </Button>
+        {buttonvisible && (
+          <>
+            <Button
+              bg="#164F66"
+              mt="2rem"
+              borderRadius="full"
+              fontWeight="bold"
+              fontSize={"md"}
+              px="2rem"
+              color={"white"}
+              onClick={() => submit(0)}
+              m="1rem"
+            >
+              Select Site 1
+            </Button>
+            <Button
+              bg="#164F66"
+              mt="2rem"
+              borderRadius="full"
+              fontWeight="bold"
+              fontSize={"md"}
+              px="2rem"
+              color={"white"}
+              onClick={() => submit(1)}
+              m="1rem"
+            >
+              Select Site 2
+            </Button>
+            <Button
+              bg="#164F66"
+              mt="2rem"
+              borderRadius="full"
+              fontWeight="bold"
+              fontSize={"md"}
+              px="2rem"
+              color={"white"}
+              onClick={() => submit(2)}
+              m="1rem"
+            >
+              Select Site 3
+            </Button>
+          </>
+        )}
       </Box>
     </div>
   );

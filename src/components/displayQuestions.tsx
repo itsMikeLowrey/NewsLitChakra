@@ -25,21 +25,25 @@ const Display: React.FC<ChildProps> = ({ messages, articlePage }) => {
     <div>
       <Box w="100%" p="1rem">
         <Text fontSize="3xl" color={"#00283A"} fontWeight="semibold">
-          Here are 3 statements from the article:
+          Here are 3 statements from the article:&nbsp;
           <a href={articlePage} target="_blank">
-            here
+            (link)
           </a>
-          . You can play 2 truths and a lie with your students.
+          <br />
+          You can play 2 truths and a lie with your students.
         </Text>
         {value["content"].map((item, statement) => (
-          <div key={statement}>
+          <Box key={statement} mt="1rem">
             <Text fontSize="2xl" color={"#00283A"} fontWeight="">
               Statment: {item.statement}
             </Text>
             <Text fontSize="md" color={"#00283A"} fontWeight="">
-              This Statement is: {item.truth.toString()}
+              This Statement is:{" "}
+              <Text color="white" as="span">
+                {item.truth.toString()}
+              </Text>
             </Text>
-          </div>
+          </Box>
         ))}
       </Box>
     </div>
